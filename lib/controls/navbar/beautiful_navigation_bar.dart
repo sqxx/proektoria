@@ -54,12 +54,8 @@ class _BeautifulNavigationBarState extends State<BeautifulNavigationBar> {
     return AnimatedContainer(
       width: isSelected ? expandedItemWidth : defaultItemWidth,
       height: double.maxFinite,
-      duration: Duration(milliseconds: 210),
+      duration: Duration(milliseconds: 220),
       padding: EdgeInsets.fromLTRB(8, 8, 8, 8),
-      decoration: BoxDecoration(
-        color: isSelected ? item.activeColor.withOpacity(0.3) : backgroundColor,
-        borderRadius: BorderRadius.all(Radius.circular(50)),
-      ),
       child: ListView(
         shrinkWrap: true,
         padding: EdgeInsets.all(0),
@@ -76,10 +72,10 @@ class _BeautifulNavigationBarState extends State<BeautifulNavigationBar> {
                   data: IconThemeData(
                       size: iconSize,
                       color: isSelected
-                          ? item.activeColor.withOpacity(1)
+                          ? Color(0xff191919)
                           : item.inactiveColor == null
-                              ? item.activeColor
-                              : item.inactiveColor),
+                          ? Color(0xff7f7f7f)
+                          : Color(0xff7f7f7f)),
                   child: item.icon,
                 ),
               ),
@@ -88,7 +84,7 @@ class _BeautifulNavigationBarState extends State<BeautifulNavigationBar> {
                       width: expandedItemWidth - defaultItemWidth,
                       child: DefaultTextStyle.merge(
                           style: TextStyle(
-                              color: item.activeColor,
+                              color: Color(0xff191919),
                               fontWeight: FontWeight.bold),
                           child: item.title,
                           textAlign: TextAlign.center))
