@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:proektoria/navigation/tab_helper.dart';
 
-class ProektoriaPage extends StatefulWidget {
+class MapPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _ProektoriaPageState();
+    return _MapPageState();
   }
 }
 
-class _ProektoriaPageState extends State<ProektoriaPage> {
+class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return Center(child: Text(NavigationTabHelper.tabs[3].description));

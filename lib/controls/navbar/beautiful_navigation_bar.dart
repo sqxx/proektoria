@@ -71,11 +71,8 @@ class _BeautifulNavigationBarState extends State<BeautifulNavigationBar> {
                 child: IconTheme(
                   data: IconThemeData(
                       size: iconSize,
-                      color: isSelected
-                          ? Color(0xff191919)
-                          : item.inactiveColor == null
-                          ? Color(0xff7f7f7f)
-                          : Color(0xff7f7f7f)),
+                      color:
+                      isSelected ? Color(0xff191919) : Color(0xff7f7f7f)),
                   child: item.icon,
                 ),
               ),
@@ -129,9 +126,7 @@ class _BeautifulNavigationBarState extends State<BeautifulNavigationBar> {
             },
             child: _buildItem(
                 BeautifulNavigationItem(
-                    icon: Icon(item.icon),
-                    title: Text(item.description),
-                    activeColor: item.color),
+                    icon: Icon(item.icon), title: Text(item.description)),
                 _selectedIndex == index),
           );
         }).toList(),
