@@ -29,7 +29,7 @@ class _MainScreenState extends State<MainScreen> {
 
     return WillPopScope(
         onWillPop: () async =>
-        !await _navigatorKeys[_currentTab].currentState.maybePop(),
+            !await _navigatorKeys[_currentTab].currentState.maybePop(),
         child: Scaffold(
             body: SafeArea(child: Stack(children: _navigators)),
             bottomNavigationBar: navigationBar));

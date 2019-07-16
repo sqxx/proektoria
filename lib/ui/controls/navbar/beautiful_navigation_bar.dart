@@ -72,7 +72,7 @@ class _BeautifulNavigationBarState extends State<BeautifulNavigationBar> {
                   data: IconThemeData(
                       size: iconSize,
                       color:
-                      isSelected ? Color(0xff191919) : Color(0xff7f7f7f)),
+                          isSelected ? Color(0xff191919) : Color(0xff7f7f7f)),
                   child: item.icon,
                 ),
               ),
