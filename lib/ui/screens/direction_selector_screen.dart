@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:proektoria/ui/screens/student_direction_selector_screen.dart';
+
+import 'main_screen.dart';
 
 class DirectionSelectorScreen extends StatelessWidget {
   static const _logoSize = 92.0;
@@ -36,8 +39,8 @@ class DirectionSelectorScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        _buildStudentButton(),
-                        _buildTeacherButton(),
+                        _buildStudentButton(context),
+                        _buildTeacherButton(context),
                       ],
                     ),
                   ),
@@ -73,23 +76,33 @@ class DirectionSelectorScreen extends StatelessWidget {
         ),
       );
 
-  Widget _buildStudentButton() => OutlineButton(
+  Widget _buildStudentButton(BuildContext context) =>
+      OutlineButton(
         child: Text(
           "Ученик".toUpperCase(),
           style: const TextStyle(
             color: Colors.black,
           ),
         ),
-        onPressed: () => {},
+        onPressed: () =>
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => StudentDirectionSelectorScreen()),
+            ),
       );
 
-  Widget _buildTeacherButton() => OutlineButton(
-        child: Text(
-          "Наставник".toUpperCase(),
-          style: const TextStyle(
-            color: Colors.black,
+  Widget _buildTeacherButton(BuildContext context) =>
+      OutlineButton(
+          child: Text(
+            "Наставник".toUpperCase(),
+            style: const TextStyle(
+              color: Colors.black,
+            ),
           ),
-        ),
-        onPressed: () => {},
-      );
+          onPressed: () =>
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => MainScreen()),
+              ));
 }

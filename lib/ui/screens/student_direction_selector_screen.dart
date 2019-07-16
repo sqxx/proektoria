@@ -3,6 +3,8 @@ import 'package:proektoria/data/data.dart';
 import 'package:proektoria/ui/behaviors/no_scroll_glow_behavior.dart';
 import 'package:proektoria/ui/controls/circle_wheel.dart';
 
+import 'main_screen.dart';
+
 class StudentDirectionSelectorScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => StudentDirectionSelectorScreenState();
@@ -112,7 +114,11 @@ class StudentDirectionSelectorScreenState
               color: Colors.black,
             ),
           ),
-          onPressed: () => {},
+          onPressed: () =>
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MainScreen()),
+              ),
         ),
       );
 }

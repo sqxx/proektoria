@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:proektoria/navigation/tab.dart';
 import 'package:proektoria/navigation/tab_helper.dart';
 import 'package:proektoria/navigation/tab_navigator.dart';
@@ -30,9 +31,15 @@ class _MainScreenState extends State<MainScreen> {
     return WillPopScope(
         onWillPop: () async =>
             !await _navigatorKeys[_currentTab].currentState.maybePop(),
-        child: Scaffold(
-            body: SafeArea(child: Stack(children: _navigators)),
-            bottomNavigationBar: navigationBar));
+        child: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.light.copyWith(
+            systemNavigationBarColor: Colors.white,
+            systemNavigationBarIconBrightness: Brightness.dark,
+          ),
+          child: Scaffold(
+              body: SafeArea(child: Stack(children: _navigators)),
+              bottomNavigationBar: navigationBar),
+        ));
   }
 
   Widget _buildOffstageNavigator(NavigationTab navigationTab) {
