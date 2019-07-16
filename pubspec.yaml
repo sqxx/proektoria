@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_svg: ^0.12.3
+  flutter_svg: ^0.13.1
   outline_material_icons: ^0.1.0
 
 dev_dependencies:
@@ -18,3 +18,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/
