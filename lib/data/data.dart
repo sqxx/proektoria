@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'forum_direction.dart';
 
-class ProektoriaData {
+class ForumData {
   static var forumDirections = <ForumDirection>[
     ForumDirection("Технологии Материалов", "", Color(0xffcf73ca)),
     ForumDirection("Технологии Движения", "", Color(0xfffa5558)),

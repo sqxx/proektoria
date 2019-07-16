@@ -1,10 +1,10 @@
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:proektoria/navigation/page.dart';
 import 'package:proektoria/navigation/tab.dart';
-import 'package:proektoria/pages/home_page.dart';
-import 'package:proektoria/pages/map_page.dart';
-import 'package:proektoria/pages/notes_page.dart';
-import 'package:proektoria/pages/schedule_page.dart';
+import 'package:proektoria/ui/pages/home_page.dart';
+import 'package:proektoria/ui/pages/map_page.dart';
+import 'package:proektoria/ui/pages/notes_page.dart';
+import 'package:proektoria/ui/pages/schedule_page.dart';
 
 class NavigationTabHelper {
   static final List<NavigationTab> tabs = [

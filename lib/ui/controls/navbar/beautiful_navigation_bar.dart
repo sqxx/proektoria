@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:proektoria/controls/navbar/beautiful_navigation_item.dart';
 import 'package:proektoria/navigation/tab.dart';
+import 'package:proektoria/ui/controls/navbar/beautiful_navigation_item.dart';
 
 class BeautifulNavigationBar extends StatefulWidget {
   final int currentIndex;
