@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:proektoria/data/colors.dart';
 
 class DirectionSelectorScreen extends StatelessWidget {
   static const _logoSize = 92.0;
   static const _decoration = const BoxDecoration(
     gradient: LinearGradient(
       colors: [
-        const Color(0xfffbfcfd),
-        const Color(0xfff2f3f8),
+        AppColors.ALMOST_WHITE,
+        AppColors.GENTLE_WHITE,
       ],
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
       tileMode: TileMode.clamp,
-      stops: [
+      stops: const [
         0.0,
         1.0,
       ],

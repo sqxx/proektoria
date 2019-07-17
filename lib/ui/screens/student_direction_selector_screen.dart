@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proektoria/data/colors.dart';
 import 'package:proektoria/data/forum_data.dart';
 import 'package:proektoria/ui/behaviors/no_scroll_glow_behavior.dart';
 import 'package:proektoria/ui/controls/circle_wheel.dart';
@@ -16,8 +17,8 @@ class _StudentDirectionSelectorScreenState
   static const _decoration = const BoxDecoration(
     gradient: LinearGradient(
       colors: [
-        const Color(0xfffbfcfd),
-        const Color(0xfff2f3f8),
+        AppColors.ALMOST_WHITE,
+        AppColors.GENTLE_WHITE,
       ],
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
@@ -89,7 +90,7 @@ class _StudentDirectionSelectorScreenState
             borderRadius: BorderRadius.circular(_itemSize / 2),
           ),
           width: _itemSize,
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Center(
             child: const Placeholder(
               color: Colors.white,

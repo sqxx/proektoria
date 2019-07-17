@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proektoria/data/colors.dart';
 import 'package:proektoria/navigation/tab.dart';
 import 'package:proektoria/ui/controls/navbar/beautiful_navigation_item.dart';
 
@@ -71,8 +72,9 @@ class _BeautifulNavigationBarState extends State<BeautifulNavigationBar> {
                 child: IconTheme(
                   data: IconThemeData(
                       size: iconSize,
-                      color:
-                          isSelected ? Color(0xff191919) : Color(0xff7f7f7f)),
+                      color: isSelected
+                          ? AppColors.NAV_BAR_ACTIVE
+                          : AppColors.NAV_BAR_INACTIVE),
                   child: item.icon,
                 ),
               ),
@@ -81,7 +83,7 @@ class _BeautifulNavigationBarState extends State<BeautifulNavigationBar> {
                       width: expandedItemWidth - defaultItemWidth,
                       child: DefaultTextStyle.merge(
                           style: TextStyle(
-                              color: Color(0xff191919),
+                              color: AppColors.NAV_BAR_ACTIVE,
                               fontWeight: FontWeight.bold),
                           child: item.title,
                           textAlign: TextAlign.center))

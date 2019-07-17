@@ -4,6 +4,8 @@ import 'package:proektoria/ui/screens/direction_selector_screen.dart';
 import 'package:proektoria/ui/screens/main_screen.dart';
 import 'package:proektoria/ui/screens/student_direction_selector_screen.dart';
 
+import 'data/colors.dart';
+
 void main() => runApp(App());
 
 class App extends StatelessWidget {
@@ -11,7 +13,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        systemNavigationBarColor: const Color(0xfff2f3f8),
+        systemNavigationBarColor: AppColors.GENTLE_WHITE,
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
