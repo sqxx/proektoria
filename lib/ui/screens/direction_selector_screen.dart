@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:proektoria/ui/screens/main_screen.dart';
-import 'package:proektoria/ui/screens/student_direction_selector_screen.dart';
 
 class DirectionSelectorScreen extends StatelessWidget {
   static const _logoSize = 92.0;
@@ -56,14 +53,14 @@ class DirectionSelectorScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          SvgPicture.asset("assets/logo.svg",
+          SvgPicture.asset('assets/logo.svg',
               width: _logoSize,
               height: _logoSize,
-              semanticsLabel: "ПроеКТОриЯ"),
+              semanticsLabel: 'ПроеКТОриЯ'),
           const Padding(
             padding: const EdgeInsets.only(top: 16.0),
             child: const Text(
-              "ПроеКТОриЯ",
+              'ПроеКТОриЯ',
               style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
             ),
           )
@@ -71,7 +68,7 @@ class DirectionSelectorScreen extends StatelessWidget {
       );
 
   Widget _buildSubHeader() => const Text(
-        "Выберите направление",
+    'Выберите направление',
         style: const TextStyle(
           fontSize: 18.0,
         ),
@@ -80,38 +77,23 @@ class DirectionSelectorScreen extends StatelessWidget {
   Widget _buildStudentButton(BuildContext context) =>
       OutlineButton(
         child: Text(
-          "Ученик".toUpperCase(),
+          'Ученик'.toUpperCase(),
           style: const TextStyle(
             color: Colors.black,
           ),
         ),
         onPressed: () =>
-            Future(() {
-              Navigator.push(
-              context,
-                  PageTransition(
-                      type: PageTransitionType.fade,
-                      duration: Duration(milliseconds: 150),
-                      child: StudentDirectionSelectorScreen()));
-            }),
+            Navigator.of(context).pushNamed('/student_direction_selector'),
       );
 
   Widget _buildTeacherButton(BuildContext context) =>
       OutlineButton(
         child: Text(
-          "Наставник".toUpperCase(),
+          'Наставник'.toUpperCase(),
           style: const TextStyle(
             color: Colors.black,
           ),
         ),
-        onPressed: () =>
-            Future(() {
-              Navigator.pushReplacement(
-                  context,
-                  PageTransition(
-                      type: PageTransitionType.fade,
-                      duration: Duration(milliseconds: 150),
-                      child: MainScreen()));
-            }),
+        onPressed: () => Navigator.of(context).pushReplacementNamed('/main'),
       );
 }

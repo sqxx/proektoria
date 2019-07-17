@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:proektoria/data/data.dart';
 import 'package:proektoria/ui/behaviors/no_scroll_glow_behavior.dart';
 import 'package:proektoria/ui/controls/circle_wheel.dart';
-
-import 'main_screen.dart';
 
 class StudentDirectionSelectorScreen extends StatefulWidget {
   @override
@@ -111,22 +108,16 @@ class _StudentDirectionSelectorScreenState
         padding: EdgeInsets.all(12.0),
         child: MaterialButton(
           child: Text(
-            "Далее".toUpperCase(),
+            'Далее'.toUpperCase(),
             style: const TextStyle(
               color: Colors.black,
             ),
           ),
           onPressed: () =>
-              Future(() {
-                Navigator.pushReplacement(
-                  context,
-                  PageTransition(
-                    type: PageTransitionType.fade,
-                    duration: Duration(milliseconds: 150),
-                    child: MainScreen(),
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                '/main',
+                    (Route<dynamic> route) => false,
               ),
-                );
-              }),
         ),
       );
 }
