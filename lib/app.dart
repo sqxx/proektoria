@@ -19,7 +19,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'ПроеКТОриЯ',
       debugShowCheckedModeBanner: false,
-      initialRoute: '/direction_selector',
+      home: DirectionSelectorScreen(),
       routes: {
         '/direction_selector': (context) => DirectionSelectorScreen(),
         '/student_direction_selector': (context) =>
