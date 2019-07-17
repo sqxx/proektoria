@@ -7,13 +7,16 @@ void main() => runApp(App());
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: const Color(0xfff2f3f8),
-        systemNavigationBarIconBrightness: Brightness.dark));
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+          systemNavigationBarColor: const Color(0xfff2f3f8),
+          systemNavigationBarIconBrightness: Brightness.dark),
+    );
 
     return MaterialApp(
-        title: 'ПроеКТОриЯ',
-        debugShowCheckedModeBanner: false,
-        home: /*MainScreen()*/ DirectionSelectorScreen());
+      title: 'ПроеКТОриЯ',
+      home: DirectionSelectorScreen(),
+      debugShowCheckedModeBanner: false,
+    );
   }
 }

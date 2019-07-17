@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:proektoria/data/data.dart';
 import 'package:proektoria/ui/behaviors/no_scroll_glow_behavior.dart';
 import 'package:proektoria/ui/controls/circle_wheel.dart';
@@ -7,27 +8,28 @@ import 'main_screen.dart';
 
 class StudentDirectionSelectorScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => StudentDirectionSelectorScreenState();
+  State<StatefulWidget> createState() => _StudentDirectionSelectorScreenState();
 }
 
-class StudentDirectionSelectorScreenState
+class _StudentDirectionSelectorScreenState
     extends State<StudentDirectionSelectorScreen> {
   static const _itemSize = 80.0;
   var _selectedItem = 0;
 
   static const _decoration = const BoxDecoration(
     gradient: LinearGradient(
-        colors: [
-          const Color(0xfffbfcfd),
-          const Color(0xfff2f3f8),
-        ],
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        tileMode: TileMode.clamp,
-        stops: [
-          0.0,
-          1.0,
-        ]),
+      colors: [
+        const Color(0xfffbfcfd),
+        const Color(0xfff2f3f8),
+      ],
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      tileMode: TileMode.clamp,
+      stops: [
+        0.0,
+        1.0,
+      ],
+    ),
   );
 
   @override
@@ -115,10 +117,16 @@ class StudentDirectionSelectorScreenState
             ),
           ),
           onPressed: () =>
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MainScreen()),
+              Future(() {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.fade,
+                    duration: Duration(milliseconds: 150),
+                    child: MainScreen(),
               ),
+                );
+              }),
         ),
       );
 }

@@ -29,17 +29,23 @@ class _MainScreenState extends State<MainScreen> {
     );
 
     return WillPopScope(
-        onWillPop: () async =>
-            !await _navigatorKeys[_currentTab].currentState.maybePop(),
-        child: AnnotatedRegion<SystemUiOverlayStyle>(
-          value: SystemUiOverlayStyle.light.copyWith(
-            systemNavigationBarColor: Colors.white,
-            systemNavigationBarIconBrightness: Brightness.dark,
+      onWillPop: () async =>
+      !await _navigatorKeys[_currentTab].currentState.maybePop(),
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light.copyWith(
+          systemNavigationBarColor: Colors.white,
+          systemNavigationBarIconBrightness: Brightness.dark,
+        ),
+        child: Scaffold(
+          body: SafeArea(
+            child: Stack(
+              children: _navigators,
+            ),
           ),
-          child: Scaffold(
-              body: SafeArea(child: Stack(children: _navigators)),
-              bottomNavigationBar: navigationBar),
-        ));
+          bottomNavigationBar: navigationBar,
+        ),
+      ),
+    );
   }
 
   Widget _buildOffstageNavigator(NavigationTab navigationTab) {
@@ -54,7 +60,11 @@ class _MainScreenState extends State<MainScreen> {
 
   void _makeNavigationMap() {
     for (NavigationTab tab in NavigationTabHelper.tabs) {
-      _navigatorKeys.addAll({tab: GlobalKey<NavigatorState>()});
+      _navigatorKeys.addAll(
+        {
+          tab: GlobalKey<NavigatorState>(),
+        },
+      );
     }
   }
 
