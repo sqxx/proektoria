@@ -22,17 +22,6 @@ class DirectionSelectorScreen extends StatelessWidget {
     ),
   );
 
-  Future navigateTo(BuildContext context) async {
-    Future(() {
-      Navigator.push(
-          context,
-          PageTransition(
-              type: PageTransitionType.fade,
-              duration: Duration(milliseconds: 150),
-              child: StudentDirectionSelectorScreen()));
-    });
-  }
-
   @override
   Widget build(BuildContext context) => Scaffold(
         body: Container(
@@ -117,7 +106,7 @@ class DirectionSelectorScreen extends StatelessWidget {
         ),
         onPressed: () =>
             Future(() {
-              Navigator.push(
+              Navigator.pushReplacement(
                   context,
                   PageTransition(
                       type: PageTransitionType.fade,

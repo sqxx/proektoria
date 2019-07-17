@@ -118,7 +118,7 @@ class _StudentDirectionSelectorScreenState
           ),
           onPressed: () =>
               Future(() {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   PageTransition(
                     type: PageTransitionType.fade,
