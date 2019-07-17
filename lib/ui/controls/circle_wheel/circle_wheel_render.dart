@@ -749,7 +749,7 @@ class RenderCircleListViewport extends RenderBox
     final CircleListParentData parentData = child.parentData;
     final double targetOffset = axis == Axis.horizontal
         ? parentData.offset.dx
-        : parentData.offset.dy; // the so-called "centerPosition"
+        : parentData.offset.dy; // the so-called 'centerPosition'
 
     final Matrix4 transform = target.getTransformTo(this);
     final Rect bounds = MatrixUtils.transformRect(transform, rect);
