@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proektoria/data/data.dart';
+import 'package:proektoria/data/forum_data.dart';
 import 'package:proektoria/ui/behaviors/no_scroll_glow_behavior.dart';
 import 'package:proektoria/ui/controls/circle_wheel.dart';
 
