@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proektoria/data/colors.dart';
 import 'package:proektoria/data/forum_data.dart';
+import 'package:proektoria/data/profile.dart';
 import 'package:proektoria/ui/behaviors/no_scroll_glow_behavior.dart';
 import 'package:proektoria/ui/controls/circle_wheel.dart';
 
@@ -105,6 +106,16 @@ class _StudentDirectionSelectorScreenState
         _selectedItem = i;
       });
 
+  void _saveProfileAndNavigateToMainScreen() async {
+    await Profile.saveProfile(
+        ForumData.forumDirections[_selectedItem].directionType);
+
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      '/main',
+          (Route<dynamic> route) => false,
+    );
+  }
+
   Widget _buildNextBtn() => Padding(
         padding: EdgeInsets.all(12.0),
         child: MaterialButton(
@@ -114,11 +125,7 @@ class _StudentDirectionSelectorScreenState
               color: Colors.black,
             ),
           ),
-          onPressed: () =>
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                '/main',
-                    (Route<dynamic> route) => false,
-              ),
+          onPressed: () => _saveProfileAndNavigateToMainScreen(),
         ),
       );
 }

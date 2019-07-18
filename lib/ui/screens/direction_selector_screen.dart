@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:proektoria/data/colors.dart';
+import 'package:proektoria/data/direction_type.dart';
+import 'package:proektoria/data/profile.dart';
 
 class DirectionSelectorScreen extends StatelessWidget {
   static const _logoSize = 92.0;
@@ -87,6 +89,15 @@ class DirectionSelectorScreen extends StatelessWidget {
             Navigator.of(context).pushNamed('/student_direction_selector'),
       );
 
+  void _saveProfileAndNavigateToMainScreen(BuildContext context) async {
+    await Profile.saveProfile(DirectionType.MENTORING);
+
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      '/main',
+          (Route<dynamic> route) => false,
+    );
+  }
+
   Widget _buildTeacherButton(BuildContext context) =>
       OutlineButton(
         child: Text(
@@ -95,6 +106,6 @@ class DirectionSelectorScreen extends StatelessWidget {
             color: Colors.black,
           ),
         ),
-        onPressed: () => Navigator.of(context).pushReplacementNamed('/main'),
+        onPressed: () => _saveProfileAndNavigateToMainScreen(context),
       );
 }

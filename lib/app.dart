@@ -16,7 +16,10 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   bool _isProfileSaved;
 
-  void loadPreferences() async {
+  bool _isProfileAvailable() =>
+      _isProfileSaved != null && _isProfileSaved == true;
+
+  void _loadPreferences() async {
     _isProfileSaved = await Profile.isProfileSaved();
     setState(() {});
   }
@@ -24,14 +27,15 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    loadPreferences();
+    _loadPreferences();
   }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        systemNavigationBarColor: AppColors.GENTLE_WHITE,
+        systemNavigationBarColor:
+        _isProfileAvailable() ? Colors.white : AppColors.GENTLE_WHITE,
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
@@ -39,7 +43,7 @@ class _AppState extends State<App> {
     return MaterialApp(
       title: 'ПроеКТОриЯ',
       debugShowCheckedModeBanner: false,
-      home: _isProfileSaved ? MainScreen() : DirectionSelectorScreen(),
+      home: _isProfileAvailable() ? MainScreen() : DirectionSelectorScreen(),
       routes: {
         '/direction_selector': (context) => DirectionSelectorScreen(),
         '/student_direction_selector': (context) =>

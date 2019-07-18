@@ -4,7 +4,7 @@ enum DirectionType {
   HEALTH,
   MOVEMENT,
   IT,
-  COSMOS,
+  SPACE,
   AGROTECHNOLOGY,
   CITY,
   SPORT,
