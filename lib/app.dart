@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:proektoria/data/colors.dart';
 import 'package:proektoria/data/profile.dart';
 import 'package:proektoria/ui/screens/direction_selector_screen.dart';
@@ -28,6 +29,8 @@ class _AppState extends State<App> {
   void initState() {
     super.initState();
     _loadPreferences();
+
+    initializeDateFormatting();
   }
 
   @override
