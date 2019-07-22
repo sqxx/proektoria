@@ -64,12 +64,29 @@ class _SchedulePageState extends State<SchedulePage> {
               left: _STICKY_HEADER_PADDING,
               right: _STICKY_HEADER_PADDING, //_STICKY_HEADER_PADDING,
             ),
-            child: Text(
-              DateFormat('HH:mm', 'ru').format(time),
-              style: const TextStyle(
-                color: Colors.teal,
-                fontSize: 22,
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  DateFormat('HH:mm', 'ru').format(time),
+                  style: const TextStyle(
+                    color: Colors.teal,
+                    fontSize: 22,
+                  ),
+                ),
+                Opacity(
+                  opacity: 0.65,
+                  child: Text(
+                    DateFormat('HH:mm', 'ru').format(time),
+                    style: const TextStyle(
+                      color: Colors.teal,
+                      fontSize: 22,
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
           content: content,

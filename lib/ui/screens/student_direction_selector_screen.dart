@@ -55,7 +55,7 @@ class _StudentDirectionSelectorScreenState
   Widget _buildTitle() => Padding(
         padding: const EdgeInsets.all(18.0),
         child: Text(
-          ForumData.forumDirections[_selectedItem].name.replaceAll(' ', '\n'),
+          ForumData.directions[_selectedItem].name.replaceAll(' ', '\n'),
           style: const TextStyle(
             fontSize: 28.0,
             color: Colors.black,
@@ -71,7 +71,7 @@ class _StudentDirectionSelectorScreenState
           renderChildrenOutsideViewport: true,
           axis: Axis.vertical,
           itemExtent: _itemSize,
-          children: List.generate(ForumData.forumDirections.length, _buildItem),
+          children: List.generate(ForumData.directions.length, _buildItem),
           radius: MediaQuery.of(context).size.width,
           onSelectedItemChanged: (i) => _itemSelected(i),
         ),
@@ -80,7 +80,7 @@ class _StudentDirectionSelectorScreenState
   Widget _buildItem(int i) => Center(
         child: Container(
           decoration: BoxDecoration(
-            color: ForumData.forumDirections[i].primaryColor,
+            color: ForumData.directions[i].primaryColor,
             boxShadow: [
               const BoxShadow(
                 color: Colors.black12,
@@ -108,7 +108,7 @@ class _StudentDirectionSelectorScreenState
 
   void _saveProfileAndNavigateToMainScreen() async {
     await Profile.saveProfile(
-        ForumData.forumDirections[_selectedItem].directionType);
+        ForumData.directions[_selectedItem].directionType);
 
     Navigator.of(context).pushNamedAndRemoveUntil(
       '/main',
