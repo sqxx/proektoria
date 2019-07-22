@@ -12,6 +12,7 @@ dependencies:
   flutter_svg: ^0.13.1
   outline_material_icons: ^0.1.0
   shared_preferences: ^0.5.3+4
+  intl: ^0.15.8
   sticky_headers:
     git:
       url: git://github.com/sqxx/flutter_sticky_headers.git
