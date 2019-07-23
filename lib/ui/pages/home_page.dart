@@ -11,6 +11,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text(NavigationTabHelper.tabs[0].description));
+    return Center(
+      child: Text(NavigationTabHelper.tabs[0].description),
+    );
   }
 }

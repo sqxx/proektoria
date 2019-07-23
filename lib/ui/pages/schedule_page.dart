@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:proektoria/data/forum_data.dart';
+import 'package:proektoria/ui/controls/event_card.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 class SchedulePage extends StatefulWidget {
@@ -19,20 +21,31 @@ class _SchedulePageState extends State<SchedulePage> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> scheduleView = [];
+    for (int d = 0; d < ForumData.schedule.length; d++) {
+      scheduleView.add(_buildDateHeader(ForumData.schedule[d][0].start));
+      for (int ev = 0; ev < ForumData.schedule[d].length; ev++) {
+        scheduleView.add(EventCard(ForumData.schedule[d][ev]));
+      }
+    }
+
     return Scaffold(
-      body: ListView.builder(
-          itemCount: 15,
-          itemBuilder: (context, index) {
-            if (index % 5 == 0)
-              return _buildDateHeader(DateTime.now());
-            else
-              return _buildStickyHeaderItem(
-                DateTime.now(),
-                Text(
-                    "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"),
-              );
-          }),
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: ListView.builder(
+          // Элементами являются каждое событие и разделители даты
+            itemCount: _scheduleSize() + ForumData.schedule.length,
+            itemBuilder: (context, index) => scheduleView[index]),
+      ),
     );
+  }
+
+  int _scheduleSize() {
+    var size = 0;
+    for (var i = 0; i < ForumData.schedule.length; i++) {
+      size += ForumData.schedule[i].length;
+    }
+    return size;
   }
 
   Widget _buildDateHeader(DateTime date) =>
