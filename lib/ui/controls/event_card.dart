@@ -5,70 +5,98 @@ import 'package:proektoria/data/forum_data.dart';
 import 'package:proektoria/data/forum_event.dart';
 
 class EventCard extends StatelessWidget {
+  static const _CARD_VERTICAL_PADDING = 10.0;
+  static const _CARD_HORIZONTAL_PADDING = 4.0;
+
   static const _INDICATOR_SIZE = 26.0;
+  static const _INDICATOR_HORIZONTAL_PADDING = 6.0;
+
+  static const _SPACE_BETWEEN_CONTENT_BLOCKS = 6.0;
 
   final ForumEvent event;
 
   EventCard(this.event);
 
+  _safetyAddWidget({@required Widget child,
+    @required List container,
+    double topPadding = 0.0,
+    double bottomPadding = 0.0}) {
+    if (child == null) return;
+
+    container.add(Padding(
+      padding: EdgeInsets.only(
+        top: topPadding,
+        bottom: bottomPadding,
+      ),
+      child: child,
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
+    final children = <Widget>[
+      _buildContent(),
+    ];
+
+    _safetyAddWidget(child: _buildIndicator(), container: children);
+
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: 14,
-        horizontal: 4,
+        vertical: _CARD_VERTICAL_PADDING,
+        horizontal: _CARD_HORIZONTAL_PADDING,
       ),
-      child: IntrinsicHeight(
-        child: Row(
-          children: <Widget>[
-            _buildContent(),
-            if (event.type != DirectionType.NONE) _buildIndicator(),
-          ],
-        ),
+      child: IntrinsicHeight(child: Row(children: children)),
+    );
+  }
+
+  Widget _buildContent() {
+    final children = <Widget>[
+      _buildTitle(),
+    ];
+
+    // Описание
+    _safetyAddWidget(
+        child: _buildDescription(),
+        container: children,
+        topPadding: _SPACE_BETWEEN_CONTENT_BLOCKS);
+
+    // Место проведения
+    _safetyAddWidget(
+        child: _buildEventVenue(),
+        container: children,
+        topPadding: _SPACE_BETWEEN_CONTENT_BLOCKS);
+
+    return Flexible(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: children,
       ),
     );
   }
 
-  Widget _buildContent() => Flexible(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(
-                bottom: 8.0,
-              ),
-              child: _buildTitle(),
-            ),
-            if (event.description != null)
-              Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 8.0,
-                ),
-                child: _buildDescription(),
-              ),
-            _buildEventVenue(),
-          ],
-        ),
-      );
-
   Widget _buildTitle() => Text(
-        event.name,
-        style: TextStyle(
-          fontSize: 18.0,
-          fontWeight: FontWeight.bold,
-        ),
-      );
+    event.name,
+    style: TextStyle(
+      fontSize: 18.0,
+      fontWeight: FontWeight.bold,
+    ),
+  );
 
-  Widget _buildDescription() => Text(
+  Widget _buildDescription() =>
+      event.description != null
+          ? Text(
         event.description,
         style: TextStyle(
           fontSize: 14.0,
           color: Colors.black,
         ),
-      );
+      )
+          : null;
 
-  Widget _buildEventVenue() => IntrinsicHeight(
+  Widget _buildEventVenue() =>
+      event.venue != null
+          ? IntrinsicHeight(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -79,21 +107,28 @@ class EventCard extends StatelessWidget {
             )
           ],
         ),
-      );
+      )
+          : null;
 
-  Widget _buildIndicator() => Center(
+  Widget _buildIndicator() =>
+      event.type != DirectionType.NONE
+          ? Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: 6.0,
+            horizontal: _INDICATOR_HORIZONTAL_PADDING,
           ),
           child: Container(
             width: _INDICATOR_SIZE,
             height: _INDICATOR_SIZE,
             decoration: BoxDecoration(
-              color: ForumData.getForumDirectionByType(event.type).primaryColor,
+              color:
+              ForumData
+                  .getForumDirectionByType(event.type)
+                  .primaryColor,
               shape: BoxShape.circle,
             ),
           ),
         ),
-      );
+      )
+          : null;
 }
