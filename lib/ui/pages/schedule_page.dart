@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:proektoria/data/direction_type.dart';
 import 'package:proektoria/data/forum_data.dart';
+import 'package:proektoria/data/profile.dart';
 import 'package:proektoria/ui/controls/event_card.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
@@ -14,9 +16,17 @@ class _SchedulePageState extends State<SchedulePage> {
   static const _STICKY_HEADER_CONTENT_HORIZONTAL_PADDING = 10.0;
   static const _STICKY_HEADER_PADDING = 10.0;
 
+  DirectionType _savedProfile;
+
+  void _loadPreferences() async {
+    _savedProfile = await Profile.loadProfile();
+    setState(() {});
+  }
+
   @override
   initState() {
     super.initState();
+    _loadPreferences();
   }
 
   @override
@@ -25,7 +35,12 @@ class _SchedulePageState extends State<SchedulePage> {
     for (int d = 0; d < ForumData.schedule.length; d++) {
       scheduleView.add(_buildDateHeader(ForumData.schedule[d][0].start));
       for (int ev = 0; ev < ForumData.schedule[d].length; ev++) {
-        scheduleView.add(EventCard(ForumData.schedule[d][ev]));
+        var event = ForumData.schedule[d][ev];
+
+        if (event.type != DirectionType.NONE && event.type != _savedProfile)
+          continue;
+
+        scheduleView.add(EventCard(event));
       }
     }
 
@@ -34,18 +49,10 @@ class _SchedulePageState extends State<SchedulePage> {
         padding: const EdgeInsets.all(12.0),
         child: ListView.builder(
           // Элементами являются каждое событие и разделители даты
-            itemCount: _scheduleSize() + ForumData.schedule.length,
+            itemCount: scheduleView.length,
             itemBuilder: (context, index) => scheduleView[index]),
       ),
     );
-  }
-
-  int _scheduleSize() {
-    var size = 0;
-    for (var i = 0; i < ForumData.schedule.length; i++) {
-      size += ForumData.schedule[i].length;
-    }
-    return size;
   }
 
   Widget _buildDateHeader(DateTime date) =>
