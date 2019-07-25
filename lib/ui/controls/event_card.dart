@@ -72,7 +72,7 @@ class EventCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Icon(OMIcons.event),
+            Icon(OMIcons.place),
             Padding(
               padding: const EdgeInsets.only(left: 6.0),
               child: Text(event.venue),
