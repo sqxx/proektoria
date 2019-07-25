@@ -55,7 +55,6 @@ class ForumData {
       ForumEvent(
         name: "Трансфер из гостиниц в «Арену»",
         type: DirectionType.NONE,
-        venue: "---",
         start: DateTime(2019, 12, 11, 8, 15),
         end: DateTime(2019, 12, 11, 8, 45),
       ),

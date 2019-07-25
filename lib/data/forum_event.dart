@@ -9,11 +9,12 @@ class ForumEvent {
   DateTime start;
   DateTime end;
 
-  ForumEvent(
-      {@required this.name,
-      this.description,
-      @required this.type,
-      @required this.venue,
-      @required this.start,
-      @required this.end});
+  ForumEvent({
+    @required this.name,
+    @required this.type,
+    @required this.start,
+    @required this.end,
+    this.description,
+    this.venue,
+  });
 }
