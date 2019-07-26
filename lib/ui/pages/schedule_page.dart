@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:proektoria/data/direction_type.dart';
 import 'package:proektoria/data/forum_data.dart';
+import 'package:proektoria/data/forum_event.dart';
 import 'package:proektoria/data/profile.dart';
 import 'package:proektoria/ui/controls/event_card.dart';
 import 'package:sticky_headers/sticky_headers.dart';
@@ -18,6 +19,9 @@ class _SchedulePageState extends State<SchedulePage> {
 
   DirectionType _savedProfile;
 
+  List<Widget> scheduleWidgetsList = [];
+  Map<DateTime, int> scheduleDaysIndexes = {};
+
   void _loadPreferences() async {
     _savedProfile = await Profile.loadProfile();
     setState(() {});
@@ -31,28 +35,49 @@ class _SchedulePageState extends State<SchedulePage> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> scheduleView = [];
-    for (int d = 0; d < ForumData.schedule.length; d++) {
-      scheduleView.add(_buildDateHeader(ForumData.schedule[d][0].start));
-      for (int ev = 0; ev < ForumData.schedule[d].length; ev++) {
-        var event = ForumData.schedule[d][ev];
-
-        if (event.type != DirectionType.NONE && event.type != _savedProfile)
-          continue;
-
-        scheduleView.add(EventCard(event));
-      }
-    }
+    if (scheduleWidgetsList.isEmpty) _buildSchedule();
 
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: ListView.builder(
           // Элементами являются каждое событие и разделители даты
-            itemCount: scheduleView.length,
-            itemBuilder: (context, index) => scheduleView[index]),
+            itemCount: scheduleWidgetsList.length,
+            itemBuilder: (context, index) => scheduleWidgetsList[index]),
       ),
     );
+  }
+
+  _buildSchedule() {
+    for (int d = 0; d < ForumData.schedule.length; d++) {
+      var daySchedule = ForumData.schedule[d];
+      var currentDay = daySchedule[0].start;
+
+      scheduleDaysIndexes.putIfAbsent(
+          currentDay, () => scheduleWidgetsList.length);
+      scheduleWidgetsList.add(_buildDateHeader(currentDay));
+
+      for (int ev = 0; ev < daySchedule.length; ev++) {
+        ForumEvent event = daySchedule[ev];
+        ForumEvent nextEvent;
+
+        if (ev != daySchedule.length - 1) nextEvent = daySchedule[ev + 1];
+
+        if (event.type != DirectionType.NONE && event.type != _savedProfile)
+          continue;
+
+        DateTime nextEventStart;
+        if (nextEvent != null) nextEventStart = nextEvent.start;
+
+        scheduleWidgetsList.add(
+          _buildStickyHeaderItem(
+            content: EventCard(event),
+            startTime: event.start,
+            endTime: event.end != nextEventStart ? event.end : null,
+          ),
+        );
+      }
+    }
   }
 
   Widget _buildDateHeader(DateTime date) =>
@@ -70,7 +95,9 @@ class _SchedulePageState extends State<SchedulePage> {
         ),
       );
 
-  Widget _buildStickyHeaderItem(DateTime time, Widget content) =>
+  Widget _buildStickyHeaderItem({@required Widget content,
+    @required DateTime startTime,
+    DateTime endTime}) =>
       Padding(
         padding: const EdgeInsets.symmetric(
             vertical: _STICKY_HEADER_CONTENT_VERTICAL_PADDING),
@@ -89,27 +116,25 @@ class _SchedulePageState extends State<SchedulePage> {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  DateFormat('HH:mm', 'ru').format(time),
-                  style: const TextStyle(
-                    color: Colors.teal,
-                    fontSize: 22,
-                  ),
-                ),
-                Opacity(
-                  opacity: 0.65,
-                  child: Text(
-                    DateFormat('HH:mm', 'ru').format(time),
-                    style: const TextStyle(
-                      color: Colors.teal,
-                      fontSize: 22,
-                    ),
-                  ),
-                )
+                _buildTimeHeader(startTime),
+                if (endTime != null)
+                  Opacity(
+                    opacity: 0.65,
+                    child: _buildTimeHeader(endTime),
+                  )
               ],
             ),
           ),
           content: content,
+        ),
+      );
+
+  Widget _buildTimeHeader(DateTime time) =>
+      Text(
+        DateFormat('HH:mm', 'ru').format(time),
+        style: const TextStyle(
+          color: Colors.teal,
+          fontSize: 22,
         ),
       );
 }
