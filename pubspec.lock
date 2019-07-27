@@ -154,7 +154,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "1cc2f923a8fe43fb6dcca4c77c117838a9cea20b"
+      resolved-ref: "4003246834ce8d8600149f57a9882f3b8da32b46"
       url: "git://github.com/sqxx/flutter_sticky_headers.git"
     source: git
     version: "0.2.0"

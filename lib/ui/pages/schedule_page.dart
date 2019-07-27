@@ -13,9 +13,9 @@ class SchedulePage extends StatefulWidget {
 }
 
 class _SchedulePageState extends State<SchedulePage> {
-  static const _STICKY_HEADER_CONTENT_VERTICAL_PADDING = 8.0;
-  static const _STICKY_HEADER_CONTENT_HORIZONTAL_PADDING = 10.0;
-  static const _STICKY_HEADER_PADDING = 10.0;
+  static const _LIST_PADDING_ALL = 12.0;
+  static const _ITEM_PADDING_VERTICAL = 4.0;
+  static const _CONTENT_PADDING = 12.0;
 
   DirectionType _savedProfile;
 
@@ -39,7 +39,7 @@ class _SchedulePageState extends State<SchedulePage> {
 
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(_LIST_PADDING_ALL),
         child: ListView.builder(
           // Элементами являются каждое событие и разделители даты
             itemCount: scheduleWidgetsList.length,
@@ -70,10 +70,15 @@ class _SchedulePageState extends State<SchedulePage> {
         if (nextEvent != null) nextEventStart = nextEvent.start;
 
         scheduleWidgetsList.add(
-          _buildStickyHeaderItem(
-            content: EventCard(event),
-            startTime: event.start,
-            endTime: event.end != nextEventStart ? event.end : null,
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: _ITEM_PADDING_VERTICAL,
+            ),
+            child: _buildStickyHeaderItem(
+              content: EventCard(event),
+              startTime: event.start,
+              endTime: event.end != nextEventStart ? event.end : null,
+            ),
           ),
         );
       }
@@ -98,35 +103,26 @@ class _SchedulePageState extends State<SchedulePage> {
   Widget _buildStickyHeaderItem({@required Widget content,
     @required DateTime startTime,
     DateTime endTime}) =>
-      Padding(
-        padding: const EdgeInsets.symmetric(
-            vertical: _STICKY_HEADER_CONTENT_VERTICAL_PADDING),
-        child: StickyHeader(
-          context: context,
-          overlapHeaders: true,
-          offsetFromHeaders: true,
-          contentRightOffset: _STICKY_HEADER_CONTENT_HORIZONTAL_PADDING,
-          header: Padding(
-            padding: const EdgeInsets.only(
-              left: _STICKY_HEADER_PADDING,
-              right: _STICKY_HEADER_PADDING, //_STICKY_HEADER_PADDING,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                _buildTimeHeader(startTime),
-                if (endTime != null)
-                  Opacity(
-                    opacity: 0.65,
-                    child: _buildTimeHeader(endTime),
-                  )
-              ],
-            ),
-          ),
-          content: content,
+      StickyHeader(
+        context: context,
+        overlapHeaders: true,
+        offsetFromHeaders: true,
+        hardcodedHeadersWidth: 75,
+        contentRightOffset: _CONTENT_PADDING,
+        header: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            _buildTimeHeader(startTime),
+            if (endTime != null)
+              Opacity(
+                opacity: 0.65,
+                child: _buildTimeHeader(endTime),
+              )
+          ],
         ),
+        content: content,
       );
 
   Widget _buildTimeHeader(DateTime time) =>
