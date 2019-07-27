@@ -5,9 +5,6 @@ import 'package:proektoria/data/forum_data.dart';
 import 'package:proektoria/data/forum_event.dart';
 
 class EventCard extends StatelessWidget {
-  static const _CARD_VERTICAL_PADDING = 10.0;
-  static const _CARD_HORIZONTAL_PADDING = 4.0;
-
   static const _INDICATOR_SIZE = 26.0;
   static const _INDICATOR_HORIZONTAL_PADDING = 6.0;
 
@@ -40,13 +37,7 @@ class EventCard extends StatelessWidget {
 
     _safetyAddWidget(child: _buildIndicator(), container: children);
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: _CARD_VERTICAL_PADDING,
-        horizontal: _CARD_HORIZONTAL_PADDING,
-      ),
-      child: IntrinsicHeight(child: Row(children: children)),
-    );
+    return IntrinsicHeight(child: Row(children: children));
   }
 
   Widget _buildContent() {
