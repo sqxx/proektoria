@@ -13,7 +13,7 @@ class SchedulePage extends StatefulWidget {
 }
 
 class _SchedulePageState extends State<SchedulePage> {
-  static const _LIST_PADDING_ALL = 12.0;
+    static const _LIST_PADDING_HORIZONTAL = 12.0;
   static const _ITEM_PADDING_VERTICAL = 4.0;
   static const _CONTENT_PADDING = 12.0;
 
@@ -39,11 +39,25 @@ class _SchedulePageState extends State<SchedulePage> {
 
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(_LIST_PADDING_ALL),
+          padding: const EdgeInsets.symmetric(
+              horizontal: _LIST_PADDING_HORIZONTAL,
+          ),
         child: ListView.builder(
-          // Элементами являются каждое событие и разделители даты
+            // Элементами являются каждое событие и разделители даты
             itemCount: scheduleWidgetsList.length,
-            itemBuilder: (context, index) => scheduleWidgetsList[index]),
+            itemBuilder: (context, index) {
+                return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                        scheduleWidgetsList[index],
+                        if (index != scheduleWidgetsList.length - 1 &&
+                            !scheduleDaysIndexes.values.contains(index + 1) &&
+                            !scheduleDaysIndexes.values.contains(index))
+                            Divider()
+                    ],
+                );
+            }),
       ),
     );
   }
@@ -85,9 +99,11 @@ class _SchedulePageState extends State<SchedulePage> {
     }
   }
 
-  Widget _buildDateHeader(DateTime date) =>
-      Padding(
-        padding: const EdgeInsets.all(12.0),
+    Widget _buildDateHeader(DateTime date) =>
+        Padding(
+            padding: const EdgeInsets.symmetric(
+                vertical: 16.0,
+            ),
         child: Center(
           child: Text(
             // todo! remove hardcoded language of date
@@ -100,9 +116,9 @@ class _SchedulePageState extends State<SchedulePage> {
         ),
       );
 
-  Widget _buildStickyHeaderItem({@required Widget content,
-    @required DateTime startTime,
-    DateTime endTime}) =>
+    Widget _buildStickyHeaderItem({@required Widget content,
+        @required DateTime startTime,
+        DateTime endTime}) =>
       StickyHeader(
         context: context,
         overlapHeaders: true,
@@ -125,8 +141,8 @@ class _SchedulePageState extends State<SchedulePage> {
         content: content,
       );
 
-  Widget _buildTimeHeader(DateTime time) =>
-      Text(
+    Widget _buildTimeHeader(DateTime time) =>
+        Text(
         DateFormat('HH:mm', 'ru').format(time),
         style: const TextStyle(
           color: Colors.teal,
