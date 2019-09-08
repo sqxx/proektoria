@@ -13,7 +13,7 @@ class SchedulePage extends StatefulWidget {
 }
 
 class _SchedulePageState extends State<SchedulePage> {
-    static const _LIST_PADDING_HORIZONTAL = 12.0;
+  static const _LIST_PADDING_HORIZONTAL = 12.0;
   static const _ITEM_PADDING_VERTICAL = 4.0;
   static const _CONTENT_PADDING = 12.0;
 
@@ -38,27 +38,22 @@ class _SchedulePageState extends State<SchedulePage> {
     if (scheduleWidgetsList.isEmpty) _buildSchedule();
 
     return Scaffold(
-      body: Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: _LIST_PADDING_HORIZONTAL,
-          ),
-        child: ListView.builder(
-            // Элементами являются каждое событие и разделители даты
-            itemCount: scheduleWidgetsList.length,
-            itemBuilder: (context, index) {
-                return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                        scheduleWidgetsList[index],
-                        if (index != scheduleWidgetsList.length - 1 &&
-                            !scheduleDaysIndexes.values.contains(index + 1) &&
-                            !scheduleDaysIndexes.values.contains(index))
-                            Divider()
-                    ],
-                );
-            }),
-      ),
+      body: ListView.builder(
+        // Элементами являются каждое событие и разделители даты
+          itemCount: scheduleWidgetsList.length,
+          itemBuilder: (context, index) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                scheduleWidgetsList[index],
+                if (index != scheduleWidgetsList.length - 1 &&
+                    !scheduleDaysIndexes.values.contains(index + 1) &&
+                    !scheduleDaysIndexes.values.contains(index))
+                  Divider()
+              ],
+            );
+          }),
     );
   }
 
@@ -99,11 +94,11 @@ class _SchedulePageState extends State<SchedulePage> {
     }
   }
 
-    Widget _buildDateHeader(DateTime date) =>
-        Padding(
-            padding: const EdgeInsets.symmetric(
-                vertical: 16.0,
-            ),
+  Widget _buildDateHeader(DateTime date) =>
+      Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 16.0,
+        ),
         child: Center(
           child: Text(
             // todo! remove hardcoded language of date
@@ -116,33 +111,38 @@ class _SchedulePageState extends State<SchedulePage> {
         ),
       );
 
-    Widget _buildStickyHeaderItem({@required Widget content,
-        @required DateTime startTime,
-        DateTime endTime}) =>
-      StickyHeader(
-        context: context,
-        overlapHeaders: true,
-        offsetFromHeaders: true,
-        hardcodedHeadersWidth: 75,
-        contentRightOffset: _CONTENT_PADDING,
-        header: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            _buildTimeHeader(startTime),
-            if (endTime != null)
-              Opacity(
-                opacity: 0.65,
-                child: _buildTimeHeader(endTime),
-              )
-          ],
+  Widget _buildStickyHeaderItem({@required Widget content,
+    @required DateTime startTime,
+    DateTime endTime}) =>
+      Padding(
+        padding: EdgeInsets.only(
+          left: _LIST_PADDING_HORIZONTAL,
         ),
-        content: content,
+        child: StickyHeader(
+          context: context,
+          overlapHeaders: true,
+          offsetFromHeaders: true,
+          hardcodedHeadersWidth: 75,
+          contentRightOffset: _CONTENT_PADDING + _LIST_PADDING_HORIZONTAL,
+          header: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              _buildTimeHeader(startTime),
+              if (endTime != null)
+                Opacity(
+                  opacity: 0.65,
+                  child: _buildTimeHeader(endTime),
+                )
+            ],
+          ),
+          content: content,
+        ),
       );
 
-    Widget _buildTimeHeader(DateTime time) =>
-        Text(
+  Widget _buildTimeHeader(DateTime time) =>
+      Text(
         DateFormat('HH:mm', 'ru').format(time),
         style: const TextStyle(
           color: Colors.teal,
