@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:indexed_list_view/indexed_list_view.dart';
 import 'package:intl/intl.dart';
 import 'package:proektoria/data/direction_type.dart';
 import 'package:proektoria/data/forum_data.dart';
@@ -37,23 +39,70 @@ class _SchedulePageState extends State<SchedulePage> {
   Widget build(BuildContext context) {
     if (scheduleWidgetsList.isEmpty) _buildSchedule();
 
+    var controller = IndexedScrollController();
+    var today = DateTime.now();
+
+    List<Widget> scheduleDates = [];
+
+    for (var k in scheduleDaysIndexes.keys) {
+      var text = DateFormat('dd MMMM', 'ru').format(k);
+
+      scheduleDates.add(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 2.0),
+          child: RaisedButton(
+            padding: EdgeInsets.all(8),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40.0),
+              side: today.day == k.day && today.month == k.month
+                  ? BorderSide(color: Colors.redAccent)
+                  : BorderSide(color: Colors.transparent),
+            ),
+            elevation: 0,
+            color: Colors.transparent,
+            child: Text(text),
+            onPressed: () {
+              controller.animateToIndex(scheduleDaysIndexes[k]);
+            },
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
-      body: ListView.builder(
-        // Элементами являются каждое событие и разделители даты
-          itemCount: scheduleWidgetsList.length,
-          itemBuilder: (context, index) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                scheduleWidgetsList[index],
-                if (index != scheduleWidgetsList.length - 1 &&
-                    !scheduleDaysIndexes.values.contains(index + 1) &&
-                    !scheduleDaysIndexes.values.contains(index))
-                  Divider()
-              ],
-            );
-          }),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: scheduleDates,
+              mainAxisAlignment: MainAxisAlignment.center,
+            ),
+          ),
+          Expanded(
+            child: IndexedListView.builder(
+                controller: controller,
+                // Элементами являются каждое событие и разделители даты
+                maxItemCount: scheduleWidgetsList.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      scheduleWidgetsList[index],
+                      if (index != scheduleWidgetsList.length - 1 &&
+                          !scheduleDaysIndexes.values.contains(index + 1) &&
+                          !scheduleDaysIndexes.values.contains(index))
+                        Divider()
+                    ],
+                  );
+                }),
+          ),
+        ],
+      ),
     );
   }
 
@@ -145,7 +194,7 @@ class _SchedulePageState extends State<SchedulePage> {
       Text(
         DateFormat('HH:mm', 'ru').format(time),
         style: const TextStyle(
-          color: Colors.teal,
+          color: Colors.blue,
           fontSize: 22,
         ),
       );
