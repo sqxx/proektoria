@@ -1,5 +1,5 @@
 name: proektoria
-description: A new Flutter project.
+description: Guide to the forum Proektoria with a schedule, map and many other useful features
 
 version: 1.0.0+1
 
@@ -16,7 +16,7 @@ dependencies:
   intl: ^0.15.8
   sticky_headers:
     git:
-      url: git://github.com/sqxx/flutter_sticky_headers.git
+      url: git://github.com/sqxx/flutter_sticky_headers_ex.git
 
 dev_dependencies:
   flutter_test:
