@@ -7,14 +7,14 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "2.3.0"
   boolean_selector:
     dependency: transitive
     description:
       name: boolean_selector
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.4"
+    version: "1.0.5"
   charcode:
     dependency: transitive
     description:
@@ -53,13 +53,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  indexed_list_view:
-    dependency: "direct main"
-    description:
-      name: indexed_list_view
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.7"
   intl:
     dependency: "direct main"
     description:
@@ -80,21 +73,21 @@ packages:
       name: meta
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.6"
+    version: "1.1.7"
   outline_material_icons:
     dependency: "direct main"
     description:
       name: outline_material_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0"
+    version: "0.1.1"
   path:
     dependency: transitive
     description:
       name: path
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.2"
+    version: "1.6.4"
   path_drawing:
     dependency: transitive
     description:
@@ -115,7 +108,7 @@ packages:
       name: pedantic
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.0"
+    version: "1.8.0+1"
   petitparser:
     dependency: transitive
     description:
@@ -129,14 +122,21 @@ packages:
       name: quiver
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.3"
+    version: "2.0.5"
+  rect_getter:
+    dependency: "direct main"
+    description:
+      name: rect_getter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1"
   shared_preferences:
     dependency: "direct main"
     description:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.3+4"
+    version: "0.5.4+3"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -161,8 +161,8 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "4003246834ce8d8600149f57a9882f3b8da32b46"
-      url: "git://github.com/sqxx/flutter_sticky_headers.git"
+      resolved-ref: "9063ea47b99fb7aea7617e22c5ba3b6fa67def26"
+      url: "git://github.com/sqxx/flutter_sticky_headers_ex.git"
     source: git
     version: "0.2.0"
   stream_channel:
@@ -178,7 +178,7 @@ packages:
       name: string_scanner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.4"
+    version: "1.0.5"
   term_glyph:
     dependency: transitive
     description:
@@ -216,4 +216,4 @@ packages:
     version: "3.5.0"
 sdks:
   dart: ">=2.4.0 <3.0.0"
-  flutter: ">=1.5.9-pre.94 <2.0.0"
+  flutter: ">=1.6.7 <2.0.0"

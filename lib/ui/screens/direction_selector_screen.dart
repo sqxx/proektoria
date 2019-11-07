@@ -1,31 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:proektoria/data/colors.dart';
 import 'package:proektoria/data/direction_type.dart';
 import 'package:proektoria/data/profile.dart';
+import 'package:proektoria/ui/styles/AppStyles.dart';
 
 class DirectionSelectorScreen extends StatelessWidget {
-  static const _logoSize = 92.0;
-  static const _decoration = const BoxDecoration(
-    gradient: LinearGradient(
-      colors: [
-        AppColors.ALMOST_WHITE,
-        AppColors.GENTLE_WHITE,
-      ],
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-      tileMode: TileMode.clamp,
-      stops: const [
-        0.0,
-        1.0,
-      ],
-    ),
-  );
-
   @override
   Widget build(BuildContext context) => Scaffold(
         body: Container(
-          decoration: _decoration,
+          decoration: AppStyles.BACKGROUND_DECORATION,
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -56,17 +39,12 @@ class DirectionSelectorScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          SvgPicture.asset('assets/logo.svg',
-              width: _logoSize,
-              height: _logoSize,
-              semanticsLabel: 'ПроеКТОриЯ'),
-          const Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: const Text(
-              'ПроеКТОриЯ',
-              style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
-            ),
-          )
+          SvgPicture.asset(
+            'assets/i_logo.svg',
+            semanticsLabel: 'ПроеКТОриЯ',
+            height: 29,
+            width: 332,
+          ),
         ],
       );
 

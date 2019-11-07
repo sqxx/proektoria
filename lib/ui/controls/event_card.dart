@@ -3,6 +3,7 @@ import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:proektoria/data/direction_type.dart';
 import 'package:proektoria/data/forum_data.dart';
 import 'package:proektoria/data/forum_event.dart';
+import 'package:proektoria/ui/styles/AppStyles.dart';
 
 class EventCard extends StatelessWidget {
   static const _INDICATOR_SIZE = 26.0;
@@ -12,7 +13,9 @@ class EventCard extends StatelessWidget {
 
   final ForumEvent event;
 
-  EventCard(this.event);
+  final DateTime today;
+
+  EventCard(this.event, this.today);
 
   _safetyAddWidget({@required Widget child,
     @required List container,
@@ -37,13 +40,34 @@ class EventCard extends StatelessWidget {
 
     _safetyAddWidget(child: _buildIndicator(), container: children);
 
-    return IntrinsicHeight(child: Row(children: children));
+    return Container(
+      decoration: AppStyles.CARD_DECORATION,
+      padding: AppStyles.CARD_PADDING,
+      child: IntrinsicHeight(child: Row(children: children)),
+    );
   }
 
   Widget _buildContent() {
-    final children = <Widget>[
-      _buildTitle(),
-    ];
+    final children = <Widget>[];
+
+    final currentTimeTS = today.millisecondsSinceEpoch;
+    final isCurrentEvent =
+        (currentTimeTS >= event.start.millisecondsSinceEpoch) &&
+            (currentTimeTS <= event.end.millisecondsSinceEpoch);
+
+    if (isCurrentEvent) {
+      _safetyAddWidget(
+        child: _buildCurrent(),
+        container: children,
+        topPadding: 0.0,
+      );
+    }
+
+    // Заголовок
+    _safetyAddWidget(
+        child: _buildTitle(),
+        container: children,
+        topPadding: isCurrentEvent ? _SPACE_BETWEEN_CONTENT_BLOCKS : 0);
 
     // Описание
     _safetyAddWidget(
@@ -70,7 +94,7 @@ class EventCard extends StatelessWidget {
     event.name,
     style: TextStyle(
       fontSize: 18.0,
-	    fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w500,
     ),
   );
 
@@ -84,6 +108,12 @@ class EventCard extends StatelessWidget {
         ),
       )
           : null;
+
+  Widget _buildCurrent() =>
+      Text(
+        "Текущее",
+        style: TextStyle(fontSize: 16, color: Colors.blueAccent),
+      );
 
   Widget _buildEventVenue() =>
       event.venue != null

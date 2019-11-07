@@ -15,6 +15,8 @@ class _MainScreenState extends State<MainScreen> {
 
   Map<NavigationTab, GlobalKey<NavigatorState>> _navigatorKeys = Map();
 
+  bool isBottomNavBarToBeShown = true;
+
   @override
   Widget build(BuildContext context) {
     if (_navigatorKeys.isEmpty) _makeNavigationMap();
@@ -28,22 +30,18 @@ class _MainScreenState extends State<MainScreen> {
       items: NavigationTabHelper.tabs,
     );
 
-    return WillPopScope(
-      onWillPop: () async =>
-      !await _navigatorKeys[_currentTab].currentState.maybePop(),
-      child: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light.copyWith(
-          systemNavigationBarColor: Colors.white,
-          systemNavigationBarIconBrightness: Brightness.dark,
-        ),
-        child: Scaffold(
-          body: SafeArea(
-            child: Stack(
-              children: _navigators,
-            ),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.light.copyWith(
+        systemNavigationBarColor: Colors.white,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+      child: Scaffold(
+        body: SafeArea(
+          child: Stack(
+            children: _navigators,
           ),
-          bottomNavigationBar: navigationBar,
         ),
+        bottomNavigationBar: navigationBar,
       ),
     );
   }

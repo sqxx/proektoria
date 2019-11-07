@@ -1,12 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:indexed_list_view/indexed_list_view.dart';
 import 'package:intl/intl.dart';
 import 'package:proektoria/data/direction_type.dart';
 import 'package:proektoria/data/forum_data.dart';
 import 'package:proektoria/data/forum_event.dart';
 import 'package:proektoria/data/profile.dart';
 import 'package:proektoria/ui/controls/event_card.dart';
+import 'package:proektoria/ui/styles/AppStyles.dart';
+import 'package:rect_getter/rect_getter.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 class SchedulePage extends StatefulWidget {
@@ -23,6 +23,13 @@ class _SchedulePageState extends State<SchedulePage> {
 
   List<Widget> scheduleWidgetsList = [];
   Map<DateTime, int> scheduleDaysIndexes = {};
+  int scheduleCurrentDayIndex = 0;
+
+  var key = GlobalKey();
+  var _keys = {};
+
+  List<Widget> scheduleDates = [];
+  bool needsRedrawHeader = true;
 
   void _loadPreferences() async {
     _savedProfile = await Profile.loadProfile();
@@ -35,42 +42,75 @@ class _SchedulePageState extends State<SchedulePage> {
     _loadPreferences();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    if (scheduleWidgetsList.isEmpty) _buildSchedule();
-
-    var controller = IndexedScrollController();
-    var today = DateTime.now();
-
-    List<Widget> scheduleDates = [];
-
+  void _buildDatesHeader(ScrollController controller) {
     for (var k in scheduleDaysIndexes.keys) {
       var text = DateFormat('dd MMMM', 'ru').format(k);
 
       scheduleDates.add(
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 2.0),
-          child: RaisedButton(
+          child: ActionChip(
             padding: EdgeInsets.all(8),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40.0),
-              side: today.day == k.day && today.month == k.month
+              side: scheduleDaysIndexes[k] == scheduleCurrentDayIndex
                   ? BorderSide(color: Colors.redAccent)
                   : BorderSide(color: Colors.transparent),
             ),
             elevation: 0,
-            color: Colors.transparent,
-            child: Text(text),
+            backgroundColor: Colors.transparent,
+            label: Text(text),
             onPressed: () {
-              controller.animateToIndex(scheduleDaysIndexes[k]);
+              // jump to date
+              var pxOffset = 0.0;
+
+              var i = 0;
+              _keys.forEach((index, key) {
+                if (i == scheduleDaysIndexes[k]) return;
+
+                var itemRect = RectGetter.getRectFromKey(key);
+                pxOffset += itemRect.height;
+
+                i++;
+              });
+
+              controller.jumpTo(pxOffset);
             },
           ),
         ),
       );
     }
 
-    return Scaffold(
-      body: Column(
+    needsRedrawHeader = !needsRedrawHeader;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var controller = ScrollController();
+
+    if (scheduleWidgetsList.isEmpty) _buildSchedule();
+    if (scheduleDates.isEmpty || needsRedrawHeader) _buildDatesHeader(
+        controller);
+
+    var listViewKey = RectGetter.createGlobalKey();
+
+    List<int> getVisible() {
+      var rect = RectGetter.getRectFromKey(listViewKey);
+      var _items = <int>[];
+      _keys.forEach((index, key) {
+        var itemRect = RectGetter.getRectFromKey(key);
+        if (itemRect != null &&
+            !(itemRect.top > rect.bottom || itemRect.bottom < rect.top))
+          _items.add(index);
+      });
+
+      return _items;
+    }
+
+
+    return Container(
+      decoration: AppStyles.BACKGROUND_DECORATION,
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
@@ -78,28 +118,57 @@ class _SchedulePageState extends State<SchedulePage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
+              key: key,
               children: scheduleDates,
               mainAxisAlignment: MainAxisAlignment.center,
             ),
           ),
           Expanded(
-            child: IndexedListView.builder(
-                controller: controller,
-                // Элементами являются каждое событие и разделители даты
-                maxItemCount: scheduleWidgetsList.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      scheduleWidgetsList[index],
-                      if (index != scheduleWidgetsList.length - 1 &&
-                          !scheduleDaysIndexes.values.contains(index + 1) &&
-                          !scheduleDaysIndexes.values.contains(index))
-                        Divider()
-                    ],
-                  );
-                }),
+            child: NotificationListener<ScrollUpdateNotification>(
+              onNotification: (_) {
+                var visibleItems = getVisible();
+                var fvi = visibleItems.first;
+                var sdiv = scheduleDaysIndexes.values.toList();
+
+                var old = scheduleCurrentDayIndex;
+
+                for (var i = 0; i < scheduleDaysIndexes.length; i++) {
+                  if (i == scheduleDaysIndexes.length - 1) {
+                    scheduleCurrentDayIndex = sdiv[i];
+                    break;
+                  }
+
+                  if (fvi >= sdiv[i] && fvi < sdiv[i + 1]) {
+                    scheduleCurrentDayIndex = sdiv[i];
+                    break;
+                  }
+                }
+
+                //todo Redraw top panel
+                if (scheduleCurrentDayIndex != old) {
+                  //scheduleDates.forEach((widget) {
+                  //widget.
+                  //});
+                }
+
+                return true;
+              },
+              child: RectGetter(
+                key: listViewKey,
+                child: ListView.builder(
+                  controller: controller,
+                  itemCount: scheduleWidgetsList.length,
+                  itemBuilder: (context, index) {
+                    _keys[index] = RectGetter.createGlobalKey();
+
+                    return RectGetter(
+                      key: _keys[index],
+                      child: scheduleWidgetsList[index],
+                    );
+                  },
+                ),
+              ),
+            ),
           ),
         ],
       ),
@@ -133,7 +202,7 @@ class _SchedulePageState extends State<SchedulePage> {
               vertical: _ITEM_PADDING_VERTICAL,
             ),
             child: _buildStickyHeaderItem(
-              content: EventCard(event),
+              content: Center(child: EventCard(event, ForumData.today)),
               startTime: event.start,
               endTime: event.end != nextEventStart ? event.end : null,
             ),
@@ -171,20 +240,20 @@ class _SchedulePageState extends State<SchedulePage> {
           context: context,
           overlapHeaders: true,
           offsetFromHeaders: true,
-          hardcodedHeadersWidth: 75,
+          hardcodedHeadersWidth: 70,
           contentRightOffset: _CONTENT_PADDING + _LIST_PADDING_HORIZONTAL,
-          header: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              _buildTimeHeader(startTime),
-              if (endTime != null)
-                Opacity(
-                  opacity: 0.65,
-                  child: _buildTimeHeader(endTime),
-                )
-            ],
+          header: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                _buildTimeHeader(startTime),
+                if (endTime != null)
+                  Opacity(opacity: 0.65, child: _buildTimeHeader(endTime))
+              ],
+            ),
           ),
           content: content,
         ),

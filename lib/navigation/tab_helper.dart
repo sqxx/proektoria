@@ -8,7 +8,8 @@ import 'package:proektoria/ui/pages/schedule_page.dart';
 
 class NavigationTabHelper {
   static final List<NavigationTab> tabs = [
-    NavigationTab(OMIcons.home, 'Главная', NavigationPage(HomePage())),
+    NavigationTab(
+        OMIcons.home, 'Главная', NavigationPage(HomePage(DateTime.now()))),
     NavigationTab(OMIcons.event, 'Расписание', NavigationPage(SchedulePage())),
     NavigationTab(OMIcons.notes, 'Заметки', NavigationPage(NotesPage())),
     NavigationTab(OMIcons.map, 'Карта', NavigationPage(MapPage()))

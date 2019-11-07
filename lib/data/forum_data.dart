@@ -4,6 +4,8 @@ import 'package:proektoria/data/forum_event.dart';
 import 'package:proektoria/ui/styles/AppColors.dart';
 
 class ForumData {
+  static final today = DateTime.now();
+
   static final directions = <ForumDirection>[
     ForumDirection(
       'Технологии Материалов',
