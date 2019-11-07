@@ -9,14 +9,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  rect_getter: ^0.0.1
   flutter_svg: ^0.13.1
   outline_material_icons: ^0.1.0
   shared_preferences: ^0.5.3+4
-  indexed_list_view: ^1.0.7
   intl: ^0.15.8
   sticky_headers:
     git:
-      url: git://github.com/sqxx/flutter_sticky_headers.git
+      url: git://github.com/sqxx/flutter_sticky_headers_ex.git
 
 dev_dependencies:
   flutter_test:
