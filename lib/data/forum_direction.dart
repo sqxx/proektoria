@@ -3,10 +3,13 @@ import 'package:proektoria/data/direction_type.dart';
 
 class ForumDirection {
   String name;
-  String logoPath;
   Color primaryColor;
   DirectionType directionType;
+  String logoPath;
 
-  ForumDirection(this.name, this.primaryColor, this.directionType,
-      {this.logoPath = ""});
+  ForumDirection(this.name,
+      this.primaryColor,
+      this.directionType, {
+        this.logoPath = "",
+      });
 }
