@@ -32,8 +32,6 @@ class CurvedBottomClipper extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) {
-    // returning fixed 'true' value here for simplicity, it's not the part of actual question, please read docs if you want to dig into it
-    // basically that means that clipping will be redrawn on any changes
     return true;
   }
 }
