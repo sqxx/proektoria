@@ -51,6 +51,21 @@ class AppStyles {
       )
     ],
   );
+  static final CARD_MAIN_DECORATION = BoxDecoration(
+    border: Border.all(
+      color: AppColors.SECOND_ACCENT,
+      width: 1.2,
+    ),
+    borderRadius: CARD_BORDER_RADIUS,
+    color: Colors.white,
+    boxShadow: [
+      BoxShadow(
+        color: Color(0x05888888),
+        offset: Offset(0.0, 1.0),
+        blurRadius: 1.0,
+      )
+    ],
+  );
   static const CARD_PADDING = EdgeInsets.symmetric(
     vertical: 12,
     horizontal: 10,

@@ -51,7 +51,9 @@ class EventCard extends StatelessWidget {
     _safetyAddWidget(child: _buildIndicator(), container: children);
 
     return Container(
-      decoration: AppStyles.CARD_DECORATION,
+      decoration: event.eventType == ForumEventType.MAIN
+          ? AppStyles.CARD_MAIN_DECORATION
+          : AppStyles.CARD_DECORATION,
       padding: AppStyles.CARD_PADDING,
       child: IntrinsicHeight(child: Row(children: children)),
     );
