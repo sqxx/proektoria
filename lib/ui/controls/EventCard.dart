@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:proektoria/data/DirectionType.dart';
 import 'package:proektoria/data/ForumData.dart';
@@ -19,7 +20,10 @@ class EventCard extends StatelessWidget {
 
   final bool showCurrentLabel;
 
-  EventCard(this.event, this.today, {this.showCurrentLabel = true});
+  final bool showTime;
+
+  EventCard(this.event, this.today,
+      {this.showCurrentLabel = true, this.showTime = false});
 
   _safetyAddWidget({
     @required Widget child,
@@ -69,11 +73,24 @@ class EventCard extends StatelessWidget {
       );
     }
 
+    if (showTime) {
+      _safetyAddWidget(
+        child: _buildTime(),
+        container: children,
+        topPadding: isCurrentEvent && showCurrentLabel
+            ? _SPACE_BETWEEN_CONTENT_BLOCKS
+            : 0,
+      );
+    }
+
     // Заголовок
     _safetyAddWidget(
-        child: _buildTitle(),
-        container: children,
-        topPadding: isCurrentEvent ? _SPACE_BETWEEN_CONTENT_BLOCKS : 0);
+      child: _buildTitle(),
+      container: children,
+      topPadding: (isCurrentEvent && showCurrentLabel) || showTime
+          ? _SPACE_BETWEEN_CONTENT_BLOCKS
+          : 0,
+    );
 
     // Описание
     _safetyAddWidget(
@@ -83,15 +100,39 @@ class EventCard extends StatelessWidget {
 
     // Место проведения
     _safetyAddWidget(
-        child: _buildEventVenue(),
-        container: children,
-        topPadding: _SPACE_BETWEEN_CONTENT_BLOCKS);
+      child: _buildEventVenue(),
+      container: children,
+      topPadding: _SPACE_BETWEEN_CONTENT_BLOCKS,
+    );
 
     return Flexible(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: children,
+      ),
+    );
+  }
+
+  Widget _buildCurrent() {
+    return Text(
+      "Текущее",
+      style: TextStyle(
+        fontSize: 16,
+        color: AppColors.SECOND_ACCENT,
+      ),
+    );
+  }
+
+  Widget _buildTime() {
+    final startTime = DateFormat('HH:mm', 'ru').format(event.start);
+    final endTime = DateFormat('HH:mm', 'ru').format(event.end);
+
+    return Text(
+      '$startTime  →  $endTime',
+      style: TextStyle(
+        fontSize: 16,
+        color: Colors.black54,
       ),
     );
   }
@@ -118,16 +159,6 @@ class EventCard extends StatelessWidget {
     } else {
       return null;
     }
-  }
-
-  Widget _buildCurrent() {
-    return Text(
-      "Текущее",
-      style: TextStyle(
-        fontSize: 16,
-        color: AppColors.SECOND_ACCENT,
-      ),
-    );
   }
 
   Widget _buildEventVenue() {
