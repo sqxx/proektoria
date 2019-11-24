@@ -224,6 +224,7 @@ class _HomePageState extends State<HomePage> {
           event,
           ForumData.today,
           showCurrentLabel: false,
+          showTime: true,
         ),
       );
     });
@@ -236,6 +237,7 @@ class _HomePageState extends State<HomePage> {
       nextEvent,
       ForumData.today,
       showCurrentLabel: false,
+      showTime: true,
     );
   }
 
