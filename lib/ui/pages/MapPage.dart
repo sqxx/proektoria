@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:photo_view/photo_view.dart';
 import 'package:proektoria/ui/styles/AppColors.dart';
 import 'package:proektoria/ui/styles/AppStyles.dart';
 
@@ -71,16 +70,9 @@ class _MapPageState extends State<MapPage> {
           padding: AppStyles.CARD_PADDING,
           height: height,
           width: width,
-          child: ClipRect(
-            child: PhotoView.customChild(
-              child: Container(
-                decoration: const BoxDecoration(color: Colors.white),
-                child: Image.asset(pathToAsset),
-              ),
-              initialScale: 1.0,
-              minScale: 1.0,
-              maxScale: 3.5,
-            ),
+          child: Image.asset(
+            pathToAsset,
+            fit: BoxFit.scaleDown,
           ),
         )
       ],
