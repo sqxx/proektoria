@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:proektoria/data/DirectionType.dart';
 import 'package:proektoria/data/ForumData.dart';
+import 'package:proektoria/data/ForumDirection.dart';
 import 'package:proektoria/data/ForumEvent.dart';
 import 'package:proektoria/data/Profile.dart';
 import 'package:proektoria/ui/controls/EventCard.dart';
@@ -43,7 +44,6 @@ class _HomePageState extends State<HomePage> {
       decoration: AppStyles.DEFAULT_BACKGROUND_DECORATION,
       child: ListView(
         padding: EdgeInsets.all(24),
-        shrinkWrap: true,
         children: <Widget>[
           // Текущая дата
           _buildHeader(),
@@ -140,10 +140,6 @@ class _HomePageState extends State<HomePage> {
     final direction = ForumData.getForumDirectionByType(_savedProfile);
 
     final directionName = direction.name;
-    final directionIcon = Icon(
-      ForumData.directions[_savedProfile.index].icon,
-      color: Colors.white,
-    );
 
     return Material(
       child: InkWell(
@@ -157,7 +153,7 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
-              _buildDirectionIcon(directionIcon),
+              _buildDirectionIcon(direction),
               SizedBox(width: 16),
               _buildDescription(directionName),
             ],
@@ -167,7 +163,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildDirectionIcon(Icon icon) {
+  Widget _buildDirectionIcon(ForumDirection direction) {
     const iconSize = 90.0;
 
     return ClipPath(
@@ -177,13 +173,17 @@ class _HomePageState extends State<HomePage> {
         width: iconSize,
         decoration: BoxDecoration(
           borderRadius: AppStyles.CARD_BORDER_RADIUS,
-          color: AppColors.SECOND_ACCENT,
+          color: direction.primaryColor,
         ),
         child: Container(
           width: 80.0,
           height: 80.0,
           padding: const EdgeInsets.all(20),
-          child: Center(child: icon),
+          child: Center(child: SvgPicture.asset(
+            direction.pathToIcon,
+            width: 36,
+            height: 36,
+          ),),
         ),
       ),
     );

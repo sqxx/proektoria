@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
+import 'package:proektoria/data/DirectionType.dart';
+import 'package:proektoria/data/ForumData.dart';
 import 'package:proektoria/data/ForumEvent.dart';
+import 'package:proektoria/data/ForumEventType.dart';
 import 'package:proektoria/ui/styles/AppColors.dart';
 import 'package:proektoria/ui/styles/AppStyles.dart';
 
 class EventCard extends StatelessWidget {
+  static const _INDICATOR_SIZE = 18.0;
+  static const _INDICATOR_HORIZONTAL_PADDING = 6.0;
+
   static const _SPACE_BETWEEN_CONTENT_BLOCKS = 6.0;
 
   final ForumEvent event;
@@ -34,12 +40,16 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final children = <Widget>[
+      _buildContent(),
+    ];
+
+    _safetyAddWidget(child: _buildIndicator(), container: children);
+
     return Container(
       decoration: AppStyles.CARD_DECORATION,
       padding: AppStyles.CARD_PADDING,
-      child: IntrinsicHeight(
-        child: _buildContent(),
-      ),
+      child: IntrinsicHeight(child: Row(children: children)),
     );
   }
 
@@ -77,10 +87,12 @@ class EventCard extends StatelessWidget {
         container: children,
         topPadding: _SPACE_BETWEEN_CONTENT_BLOCKS);
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: children,
+    return Flexible(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: children,
+      ),
     );
   }
 
@@ -130,6 +142,42 @@ class EventCard extends StatelessWidget {
               child: Text(event.venue),
             )
           ],
+        ),
+      );
+    } else {
+      return null;
+    }
+  }
+
+  Widget _buildIndicator() {
+    if (event.type != DirectionType.NONE) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: _INDICATOR_HORIZONTAL_PADDING,
+          ),
+          child: Container(
+            width: _INDICATOR_SIZE,
+            height: _INDICATOR_SIZE,
+            decoration: BoxDecoration(
+              color: ForumData
+                  .getForumDirectionByType(event.type)
+                  .primaryColor,
+              shape: BoxShape.circle,
+            ),
+          ),
+        ),
+      );
+    } else if (event.eventType == ForumEventType.FOOD) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: _INDICATOR_HORIZONTAL_PADDING,
+          ),
+          child: Icon(
+            OMIcons.fastfood,
+            size: _INDICATOR_SIZE,
+          ),
         ),
       );
     } else {

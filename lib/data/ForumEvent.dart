@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:proektoria/data/DirectionType.dart';
+import 'package:proektoria/data/ForumEventType.dart';
 
 class ForumEvent {
   /// Название события
@@ -20,11 +21,8 @@ class ForumEvent {
   /// Время окончания события
   DateTime end;
 
-  /// Приём пищи
-  bool isFoodIntake;
-
-  /// Ключевое событие
-  bool isMainEvent;
+  /// Тип мероприятия
+  ForumEventType eventType;
 
   ForumEvent({
     @required this.name,
@@ -33,12 +31,11 @@ class ForumEvent {
     this.venue,
     @required this.start,
     this.end,
-    this.isFoodIntake = false,
-    this.isMainEvent = false
+    this.eventType = ForumEventType.NONE,
   }) {
     assert(name != null);
     assert(type != null);
     assert(start != null);
-    assert(isFoodIntake != null);
+    assert(eventType != null);
   }
 }

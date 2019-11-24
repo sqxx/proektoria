@@ -6,23 +6,23 @@ class ForumDirection {
   String name;
 
   /// Иконка направления
-  IconData icon;
+  String pathToIcon;
 
-  /// Путь к иллюстрации
-  String illustrationPath;
+  /// Акцентный цвет направления
+  Color primaryColor;
 
-  /// Тип
+  /// Тип направления
   DirectionType directionType;
 
   ForumDirection({
     @required this.name,
-    @required this.icon,
-    @required this.illustrationPath,
+    @required this.pathToIcon,
+    @required this.primaryColor,
     @required this.directionType,
   }) {
     assert(name != null);
-    assert(icon != null);
-    assert(illustrationPath != null);
+    assert(pathToIcon != null);
+    assert(primaryColor != null);
     assert(directionType != null);
   }
 }

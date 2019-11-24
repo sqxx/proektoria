@@ -10,4 +10,11 @@ class AppColors {
 
   static const NAV_BAR_ACTIVE = const Color(0xff191919);
   static const NAV_BAR_INACTIVE = const Color(0xff7f7f7f);
+
+  static const DIR_ECOLOGY = const Color(0xff00bff3);
+  static const DIR_SECURITY = const Color(0xffee3229);
+  static const DIR_HEALTH = const Color(0xff8dc73f);
+  static const DIR_WORLD = const Color(0xfffef200);
+  static const DIR_INDUSTRIAL = const Color(0xff812991);
+  static const DIR_CULTURE = const Color(0xff005baa);
 }

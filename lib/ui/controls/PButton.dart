@@ -8,8 +8,8 @@ class PButton extends StatelessWidget {
 
   const PButton({
     Key key,
-    @required this.icon,
     @required this.text,
+    this.icon,
     @required this.onPressed,
   }) : super(key: key);
 
@@ -20,8 +20,8 @@ class PButton extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Icon(icon),
-          SizedBox(width: 8),
+          if (icon != null) Icon(icon),
+          if (icon != null) SizedBox(width: 8),
           Text(
             text.toUpperCase(),
             style: const TextStyle(color: Colors.black),

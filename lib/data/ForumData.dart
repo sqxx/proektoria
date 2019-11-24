@@ -1,42 +1,49 @@
-import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:proektoria/data/DirectionType.dart';
 import 'package:proektoria/data/ForumDirection.dart';
 import 'package:proektoria/data/ForumEvent.dart';
+import 'package:proektoria/data/ForumEventType.dart';
+import 'package:proektoria/ui/styles/AppColors.dart';
 
 class ForumData {
   static var today = DateTime.now();
 
   static final directions = <ForumDirection>[
     ForumDirection(
-        name: 'Экология',
-        icon: OMIcons.naturePeople,
-        illustrationPath: '',
-        directionType: DirectionType.ECOLOGY),
+      name: 'Экология',
+      pathToIcon: 'assets/directions/ecology.svg',
+      primaryColor: AppColors.DIR_ECOLOGY,
+      directionType: DirectionType.ECOLOGY,
+    ),
     ForumDirection(
-        name: 'Безопасность',
-        icon: OMIcons.lock,
-        illustrationPath: '',
-        directionType: DirectionType.SECURITY),
+      name: 'Безопасность',
+      pathToIcon: 'assets/directions/security.svg',
+      primaryColor: AppColors.DIR_SECURITY,
+      directionType: DirectionType.SECURITY,
+    ),
     ForumDirection(
-        name: 'Здоровье',
-        icon: OMIcons.favoriteBorder,
-        illustrationPath: '',
-        directionType: DirectionType.HEALTH),
+      name: 'Здоровье',
+      pathToIcon: 'assets/directions/health.svg',
+      primaryColor: AppColors.DIR_HEALTH,
+      directionType: DirectionType.HEALTH,
+    ),
     ForumDirection(
-        name: 'Среда обитания',
-        icon: OMIcons.people,
-        illustrationPath: '',
-        directionType: DirectionType.WORLD),
+      name: 'Среда обитания',
+      pathToIcon: 'assets/directions/health.svg',
+      primaryColor: AppColors.DIR_WORLD,
+      directionType: DirectionType.WORLD,
+    ),
     ForumDirection(
-        name: 'Производственная революция',
-        icon: OMIcons.settings,
-        illustrationPath: '',
-        directionType: DirectionType.INDUSTRIAL),
+      name: 'Производственная революция',
+      pathToIcon: 'assets/directions/industrial.svg',
+      primaryColor: AppColors.DIR_INDUSTRIAL,
+      directionType: DirectionType.INDUSTRIAL,
+    ),
     ForumDirection(
-        name: 'Культурный код',
-        icon: OMIcons.whatshot,
-        illustrationPath: '',
-        directionType: DirectionType.CULTURE),
+      name: 'Культурный код',
+      pathToIcon: 'assets/directions/culture.svg',
+      primaryColor: AppColors.DIR_CULTURE,
+      directionType: DirectionType.CULTURE,
+    ),
   ];
 
   static ForumDirection getForumDirectionByType(DirectionType type) {
@@ -68,7 +75,8 @@ class ForumData {
           venue: 'Гостиницы',
           start: DateTime(2019, 11, 22, 19, 00),
           end: DateTime(2019, 11, 22, 21, 00),
-          isFoodIntake: true),
+        eventType: ForumEventType.FOOD,
+      ),
       ForumEvent(
         name: 'Ознакомительная встреча школьников с кураторами',
         venue: 'Гостиницы',
@@ -84,7 +92,7 @@ class ForumData {
         venue: 'Гостиницы',
         start: DateTime(2019, 11, 23, 8, 00),
         end: DateTime(2019, 11, 23, 9, 00),
-        isFoodIntake: true,
+        eventType: ForumEventType.FOOD,
       ),
       ForumEvent(
         name: 'Трансфер из гостиниц в «Арену»',
@@ -102,21 +110,21 @@ class ForumData {
         venue: 'Арена. Главный зал',
         start: DateTime(2019, 11, 23, 11, 00),
         end: DateTime(2019, 11, 23, 11, 15),
-        isMainEvent: true,
+        eventType: ForumEventType.MAIN,
       ),
       ForumEvent(
         name: 'Открытая дискуссия «Кто я в современном мире»',
         venue: 'Арена. Главный зал',
         start: DateTime(2019, 11, 23, 11, 15),
         end: DateTime(2019, 11, 23, 12, 45),
-        isMainEvent: true,
+        eventType: ForumEventType.MAIN,
       ),
       ForumEvent(
         name: 'Кофе-пауза',
         venue: 'Арена',
         start: DateTime(2019, 11, 23, 12, 45),
         end: DateTime(2019, 11, 23, 13, 05),
-        isFoodIntake: true,
+        eventType: ForumEventType.FOOD,
       ),
       ForumEvent(
         type: DirectionType.CULTURE,
@@ -126,6 +134,7 @@ class ForumData {
         venue: 'Арена. Синий класс',
         start: DateTime(2019, 11, 23, 13, 05),
         end: DateTime(2019, 11, 23, 14, 45),
+        eventType: ForumEventType.LESSON,
       ),
       ForumEvent(
         type: DirectionType.ECOLOGY,
@@ -135,6 +144,7 @@ class ForumData {
         venue: 'Арена. Голубой класс',
         start: DateTime(2019, 11, 23, 13, 05),
         end: DateTime(2019, 11, 23, 14, 45),
+        eventType: ForumEventType.LESSON,
       ),
       ForumEvent(
         type: DirectionType.HEALTH,
@@ -143,6 +153,7 @@ class ForumData {
         venue: 'Арена. Зелёный класс',
         start: DateTime(2019, 11, 23, 13, 05),
         end: DateTime(2019, 11, 23, 14, 45),
+        eventType: ForumEventType.LESSON,
       ),
       ForumEvent(
         type: DirectionType.WORLD,
@@ -152,6 +163,7 @@ class ForumData {
         venue: 'Арена. Жёлтый класс',
         start: DateTime(2019, 11, 23, 13, 05),
         end: DateTime(2019, 11, 23, 14, 45),
+        eventType: ForumEventType.LESSON,
       ),
       ForumEvent(
         type: DirectionType.SECURITY,
@@ -161,6 +173,7 @@ class ForumData {
         venue: 'Арена. Красный класс',
         start: DateTime(2019, 11, 23, 13, 05),
         end: DateTime(2019, 11, 23, 14, 45),
+        eventType: ForumEventType.LESSON,
       ),
       ForumEvent(
         type: DirectionType.INDUSTRIAL,
@@ -169,13 +182,14 @@ class ForumData {
         venue: 'Арена. Фиолетовый класс',
         start: DateTime(2019, 11, 23, 13, 05),
         end: DateTime(2019, 11, 23, 14, 45),
+        eventType: ForumEventType.LESSON,
       ),
       ForumEvent(
         name: 'Обед',
         venue: 'Ресторан. Гостиница «Юбилейная»',
         start: DateTime(2019, 11, 23, 14, 35),
         end: DateTime(2019, 11, 23, 16, 35),
-        isFoodIntake: true,
+        eventType: ForumEventType.FOOD,
       ),
       ForumEvent(
         name:
@@ -195,7 +209,7 @@ class ForumData {
         venue: 'Арена',
         start: DateTime(2019, 11, 23, 19, 35),
         end: DateTime(2019, 11, 23, 19, 55),
-        isFoodIntake: true,
+        eventType: ForumEventType.FOOD,
       ),
       ForumEvent(
         name: 'Подведение итогов дня. Рефлексия',
@@ -213,7 +227,7 @@ class ForumData {
         venue: 'Гостиницы',
         start: DateTime(2019, 11, 23, 21, 00),
         end: DateTime(2019, 11, 23, 22, 00),
-        isFoodIntake: true,
+        eventType: ForumEventType.FOOD,
       ),
     ],
 
@@ -224,7 +238,7 @@ class ForumData {
         venue: 'Гостиницы',
         start: DateTime(2019, 11, 24, 7, 00),
         end: DateTime(2019, 11, 24, 8, 00),
-        isFoodIntake: true,
+        eventType: ForumEventType.FOOD,
       ),
       ForumEvent(
         name: 'Трансфер из гостиниц в «Арену»',
@@ -242,7 +256,7 @@ class ForumData {
         venue: 'Арена',
         start: DateTime(2019, 11, 24, 10, 30),
         end: DateTime(2019, 11, 24, 11, 00),
-        isFoodIntake: true,
+        eventType: ForumEventType.FOOD,
       ),
       ForumEvent(
         name: 'Решение кейсов',
@@ -255,7 +269,7 @@ class ForumData {
         venue: 'Ресторан. Гостиница «Юбилейная»',
         start: DateTime(2019, 11, 24, 13, 00),
         end: DateTime(2019, 11, 24, 15, 00),
-        isFoodIntake: true,
+        eventType: ForumEventType.FOOD,
       ),
       ForumEvent(
         type: DirectionType.CULTURE,
@@ -266,6 +280,7 @@ class ForumData {
         venue: 'Арена. Синий класс',
         start: DateTime(2019, 11, 24, 15, 00),
         end: DateTime(2019, 11, 24, 16, 00),
+        eventType: ForumEventType.LESSON,
       ),
       ForumEvent(
         type: DirectionType.ECOLOGY,
@@ -275,6 +290,7 @@ class ForumData {
         venue: 'Арена. Голубой класс',
         start: DateTime(2019, 11, 24, 15, 00),
         end: DateTime(2019, 11, 24, 16, 00),
+        eventType: ForumEventType.LESSON,
       ),
       ForumEvent(
         type: DirectionType.HEALTH,
@@ -284,6 +300,7 @@ class ForumData {
         venue: 'Арена. Зелёный класс',
         start: DateTime(2019, 11, 24, 15, 00),
         end: DateTime(2019, 11, 24, 16, 00),
+        eventType: ForumEventType.LESSON,
       ),
       ForumEvent(
         type: DirectionType.WORLD,
@@ -294,6 +311,7 @@ class ForumData {
         venue: 'Арена. Жёлтый класс',
         start: DateTime(2019, 11, 24, 15, 00),
         end: DateTime(2019, 11, 24, 16, 00),
+        eventType: ForumEventType.LESSON,
       ),
       ForumEvent(
         type: DirectionType.SECURITY,
@@ -303,6 +321,7 @@ class ForumData {
         venue: 'Арена. Красный класс',
         start: DateTime(2019, 11, 24, 15, 00),
         end: DateTime(2019, 11, 24, 16, 00),
+        eventType: ForumEventType.LESSON,
       ),
       ForumEvent(
         type: DirectionType.INDUSTRIAL,
@@ -312,6 +331,7 @@ class ForumData {
         venue: 'Арена. Фиолетовый класс',
         start: DateTime(2019, 11, 24, 15, 00),
         end: DateTime(2019, 11, 24, 16, 00),
+        eventType: ForumEventType.LESSON,
       ),
       ForumEvent(
         name: 'Перерыв',
@@ -338,7 +358,7 @@ class ForumData {
         venue: 'Арена',
         start: DateTime(2019, 11, 24, 17, 45),
         end: DateTime(2019, 11, 24, 18, 00),
-        isFoodIntake: true,
+        eventType: ForumEventType.FOOD,
       ),
       ForumEvent(
         name: 'Решение кейсов',
@@ -362,7 +382,7 @@ class ForumData {
         venue: 'Гостиницы',
         start: DateTime(2019, 11, 24, 20, 00),
         end: DateTime(2019, 11, 24, 21, 00),
-        isFoodIntake: true,
+        eventType: ForumEventType.FOOD,
       ),
     ],
 
@@ -373,7 +393,7 @@ class ForumData {
         venue: 'Гостиницы',
         start: DateTime(2019, 11, 25, 7, 00),
         end: DateTime(2019, 11, 25, 8, 00),
-        isFoodIntake: true,
+        eventType: ForumEventType.FOOD,
       ),
       ForumEvent(
         name: 'Трансфер из гостиниц в «Арену»',
@@ -391,7 +411,7 @@ class ForumData {
         venue: 'Арена',
         start: DateTime(2019, 11, 25, 10, 30),
         end: DateTime(2019, 11, 25, 11, 00),
-        isFoodIntake: true,
+        eventType: ForumEventType.FOOD,
       ),
       ForumEvent(
         name:
@@ -399,7 +419,7 @@ class ForumData {
         venue: 'Арена. Главный зал',
         start: DateTime(2019, 11, 25, 11, 00),
         end: DateTime(2019, 11, 25, 12, 00),
-        isMainEvent: true,
+        eventType: ForumEventType.MAIN,
       ),
       ForumEvent(
         name: 'Обзорная экскурсия по городу',
@@ -411,7 +431,7 @@ class ForumData {
         venue: 'Ресторан. Гостиница «Юбилейная»',
         start: DateTime(2019, 11, 25, 13, 00),
         end: DateTime(2019, 11, 25, 15, 00),
-        isFoodIntake: true,
+        eventType: ForumEventType.FOOD,
       ),
       ForumEvent(
         name: 'Решение кейсов',
@@ -424,7 +444,7 @@ class ForumData {
         venue: 'Арена',
         start: DateTime(2019, 11, 25, 16, 30),
         end: DateTime(2019, 11, 25, 17, 00),
-        isFoodIntake: true,
+        eventType: ForumEventType.FOOD,
       ),
       ForumEvent(
         name: 'Защита кейсов. Подведение итогов работы направлений',
@@ -442,7 +462,7 @@ class ForumData {
         venue: 'Гостиницы',
         start: DateTime(2019, 11, 25, 20, 30),
         end: DateTime(2019, 11, 24, 21, 30),
-        isFoodIntake: true,
+        eventType: ForumEventType.FOOD,
       ),
     ],
 
@@ -453,7 +473,7 @@ class ForumData {
         venue: 'Гостиницы',
         start: DateTime(2019, 11, 26, 7, 00),
         end: DateTime(2019, 11, 26, 8, 00),
-        isFoodIntake: true,
+        eventType: ForumEventType.FOOD,
       ),
       ForumEvent(
         name: 'Трансфер из гостиниц в «Арену»',
@@ -472,49 +492,49 @@ class ForumData {
         venue: 'Арена. Главный зал',
         start: DateTime(2019, 11, 26, 10, 00),
         end: DateTime(2019, 11, 26, 11, 00),
-        isMainEvent: true,
+        eventType: ForumEventType.MAIN,
       ),
       ForumEvent(
         name: 'Кофе-пауза',
         venue: 'Арена',
         start: DateTime(2019, 11, 26, 11, 00),
         end: DateTime(2019, 11, 26, 11, 30),
-        isFoodIntake: true,
+        eventType: ForumEventType.FOOD,
       ),
       ForumEvent(
         name: 'VIP-обход в зоне лабораторий',
         venue: 'Арена. Лабораторная Зона',
         start: DateTime(2019, 11, 26, 11, 00),
         end: DateTime(2019, 11, 26, 12, 00),
-        isMainEvent: true,
+        eventType: ForumEventType.MAIN,
       ),
       ForumEvent(
         name: 'Большой открытый урок «Школа завтрашнего дня»',
         venue: 'Арена. Главный зал',
         start: DateTime(2019, 11, 26, 12, 00),
         end: DateTime(2019, 11, 26, 13, 00),
-        isMainEvent: true,
+        eventType: ForumEventType.MAIN,
       ),
       ForumEvent(
         name: 'Кофе-пауза',
         venue: 'Арена',
         start: DateTime(2019, 11, 26, 13, 00),
         end: DateTime(2019, 11, 26, 13, 30),
-        isFoodIntake: true,
+        eventType: ForumEventType.FOOD,
       ),
       ForumEvent(
         name: 'Ректорский час',
         venue: 'Арена. Главный зал',
         start: DateTime(2019, 11, 26, 13, 30),
         end: DateTime(2019, 11, 26, 15, 00),
-        isMainEvent: true,
+        eventType: ForumEventType.MAIN,
       ),
       ForumEvent(
         name: 'Обед',
         venue: 'Ресторан. Гостиница «Юбилейная»',
         start: DateTime(2019, 11, 26, 15, 00),
         end: DateTime(2019, 11, 26, 17, 00),
-        isFoodIntake: true,
+        eventType: ForumEventType.FOOD,
       ),
       ForumEvent(
         name:
@@ -522,14 +542,14 @@ class ForumData {
         venue: 'Арена. Главный зал',
         start: DateTime(2019, 11, 26, 17, 00),
         end: DateTime(2019, 11, 26, 18, 30),
-        isMainEvent: true,
+        eventType: ForumEventType.MAIN,
       ),
       ForumEvent(
         name: 'Фуршет',
         venue: 'Арена. Классы',
         start: DateTime(2019, 11, 26, 18, 30),
         end: DateTime(2019, 11, 26, 19, 00),
-        isFoodIntake: true,
+        eventType: ForumEventType.FOOD,
       ),
       ForumEvent(
         name: 'Дискотека',
@@ -547,7 +567,7 @@ class ForumData {
         venue: 'Гостиницы',
         start: DateTime(2019, 11, 26, 21, 00),
         end: DateTime(2019, 11, 26, 22, 00),
-        isFoodIntake: true,
+        eventType: ForumEventType.FOOD,
       ),
     ],
   ];
@@ -591,7 +611,11 @@ class ForumData {
           return;
         }
 
-        if (saveNextEvent) nextEvent = event;
+        if (saveNextEvent) {
+          nextEvent = event;
+          saveNextEvent = false;
+          return;
+        }
       });
     });
 

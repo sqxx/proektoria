@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:proektoria/data/ForumData.dart';
 import 'package:proektoria/data/Profile.dart';
 import 'package:proektoria/navigation/NavigationHelper.dart';
@@ -119,15 +120,25 @@ class _StudentDirectionSelectorScreenState
   }
 
   Widget _buildItem(int i) {
+    final direction = ForumData.directions[i];
+
+    final primaryColor = direction.primaryColor;
+
     var itemDecoration = BoxDecoration(
-      color: Color(0x44ffffff),
+      color: Color.fromARGB(
+        100,
+        primaryColor.red,
+        primaryColor.green,
+        primaryColor.blue,
+      ),
       backgroundBlendMode: BlendMode.hardLight,
       borderRadius: BorderRadius.circular(_ITEM_SIZE / 2),
     );
 
-    var icon = Icon(
-      ForumData.directions[i].icon,
-      color: Colors.white,
+    var icon = SvgPicture.asset(
+      direction.pathToIcon,
+      width: 32,
+      height: 32,
     );
 
     return Center(

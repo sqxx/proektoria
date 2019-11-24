@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:proektoria/data/DirectionType.dart';
 import 'package:proektoria/data/Profile.dart';
 import 'package:proektoria/navigation/NavigationHelper.dart';
@@ -22,10 +21,6 @@ class DirectionSelectorScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var header = _buildHeader();
     var subHeader = _buildSubHeader();
-    var buttons = <Widget>[
-      _buildStudentButton(context),
-      _buildTeacherButton(context),
-    ];
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light.copyWith(
@@ -50,7 +45,7 @@ class DirectionSelectorScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: buttons,
+                      children: [_buildNextButton(context)],
                     ),
                   ),
                 )
@@ -89,7 +84,7 @@ class DirectionSelectorScreen extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         const Text(
-          'Представьтесь',
+          'Гид-приложение по форуму',
           style: const TextStyle(fontSize: 20.0),
           textAlign: TextAlign.center,
         ),
@@ -97,18 +92,9 @@ class DirectionSelectorScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTeacherButton(BuildContext context) {
+  Widget _buildNextButton(BuildContext context) {
     return PButton(
-      text: 'Наставник',
-      icon: OMIcons.school,
-      onPressed: () => _mentorNext(context),
-    );
-  }
-
-  Widget _buildStudentButton(BuildContext context) {
-    return PButton(
-      text: 'Ученик',
-      icon: Icons.perm_identity,
+      text: 'Продолжить',
       onPressed: () =>
           Navigator.of(context).pushNamed('/student_direction_selector'),
     );

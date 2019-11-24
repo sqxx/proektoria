@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:proektoria/data/DirectionType.dart';
 import 'package:proektoria/data/ForumData.dart';
 import 'package:proektoria/data/ForumEvent.dart';
+import 'package:proektoria/data/ForumEventType.dart';
 import 'package:proektoria/data/Profile.dart';
 import 'package:proektoria/ui/controls/EventCard.dart';
 import 'package:proektoria/ui/styles/AppColors.dart';
@@ -22,7 +23,7 @@ class _SchedulePageState extends State<SchedulePage> {
   DirectionType _savedProfile;
 
   final controller = ScrollController();
-  List<Widget> scheduleWidgetsList = [];
+  final scheduleWidgetsList = ValueNotifier<List<Widget>>([]);
 
   void _loadPreferences() async {
     _savedProfile = await Profile.loadProfile();
@@ -37,24 +38,37 @@ class _SchedulePageState extends State<SchedulePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (scheduleWidgetsList.isEmpty) _buildSchedule();
+    if (scheduleWidgetsList.value.isEmpty) {
+      _buildSchedule();
+    }
 
-    return Container(
-      decoration: AppStyles.DEFAULT_BACKGROUND_DECORATION,
-      child: ListView(
-        controller: controller,
-        children: scheduleWidgetsList,
-      ),
+    return ValueListenableBuilder<List<Widget>>(
+      valueListenable: scheduleWidgetsList,
+      builder: (context, value, child) {
+        return Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: AppStyles.DEFAULT_BACKGROUND_DECORATION,
+          child: ListView(
+            controller: controller,
+            children: value,
+          ),
+        );
+      },
     );
   }
 
   void _buildSchedule() {
+    if (_savedProfile == null) return;
+
+    List<Widget> t = [];
+
     for (int d = 0; d < ForumData.schedule.length; d++) {
       var scheduleForDay = ForumData.schedule[d];
 
       // Добавляем перед расписание шапку с датой
       var currentDate = scheduleForDay[0].start;
-      scheduleWidgetsList.add(_buildDateHeader(currentDate));
+      t.add(_buildDateHeader(currentDate));
 
       // Добавление виджетов событий в общий список
       // Время окончания события отображается лишь в том случае,
@@ -68,21 +82,23 @@ class _SchedulePageState extends State<SchedulePage> {
         }
 
         // Скрытие событий не своего направления
-        // Сломано, неактуально
-        //if (event.type != DirectionType.NONE && event.type != _savedProfile) {
-        //  continue;
-        //}
+        if (event.type != DirectionType.NONE &&
+            event.type != _savedProfile &&
+            event.eventType != ForumEventType.LESSON
+        ) {
+          continue;
+        }
 
         DateTime nextEventStart;
         if (nextEvent != null) {
           nextEventStart = nextEvent.start;
         }
 
-        scheduleWidgetsList.add(
+        t.add(
           Padding(
             padding: EdgeInsets.symmetric(vertical: _ITEM_PADDING_VERTICAL),
             child: _buildStickyHeaderItem(
-              content: Center(child: EventCard(event, ForumData.today)),
+              content: EventCard(event, ForumData.today),
               startTime: event.start,
               endTime: event.end != nextEventStart ? event.end : null,
             ),
@@ -90,6 +106,8 @@ class _SchedulePageState extends State<SchedulePage> {
         );
       }
     }
+
+    scheduleWidgetsList.value = t;
   }
 
   Widget _buildDateHeader(DateTime date) {
@@ -97,9 +115,9 @@ class _SchedulePageState extends State<SchedulePage> {
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Center(
         child: Text(
-          DateFormat('dd MMMM', 'ru').format(date),
+          DateFormat('dd MMMM', 'ru').format(date).toUpperCase(),
           style: TextStyle(
-            fontSize: 24.0,
+            fontSize: 21.0,
             fontWeight: FontWeight.bold,
           ),
         ),
