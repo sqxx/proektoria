@@ -461,7 +461,7 @@ class ForumData {
         name: 'Ужин',
         venue: 'Гостиницы',
         start: DateTime(2019, 11, 25, 20, 30),
-        end: DateTime(2019, 11, 24, 21, 30),
+        end: DateTime(2019, 11, 25, 21, 30),
         eventType: ForumEventType.FOOD,
       ),
     ],
